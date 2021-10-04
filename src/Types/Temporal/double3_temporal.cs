@@ -2,14 +2,13 @@
 
 using System;
 using Appalachia.Core.Extensions;
-using Appalachia.Core.Geometry;
 using Appalachia.Utility.Constants;
 using Unity.Mathematics;
 using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.Types.temporal
+namespace Appalachia.Jobs.Types.Temporal
 {
     [Serializable]
     public struct double3_temporal

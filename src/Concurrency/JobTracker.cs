@@ -7,7 +7,7 @@ using Unity.Jobs;
 
 #endregion
 
-namespace Appalachia.Core.Concurrency
+namespace Appalachia.Jobs.Concurrency
 {
     public static class JobTracker
     {

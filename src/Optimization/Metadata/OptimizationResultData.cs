@@ -6,7 +6,7 @@ using Unity.Collections;
 
 #endregion
 
-namespace Appalachia.Optimization.Metadata
+namespace Appalachia.Jobs.Optimization.Metadata
 {
     public struct OptimizationResultData : IDisposable
     {

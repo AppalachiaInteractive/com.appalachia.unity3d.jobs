@@ -9,7 +9,7 @@ using Random = Unity.Mathematics.Random;
 
 #endregion
 
-namespace Appalachia.Optimization.Utilities
+namespace Appalachia.Jobs.Optimization.Utilities
 {
     public struct JobRandoms : IDisposable
     {

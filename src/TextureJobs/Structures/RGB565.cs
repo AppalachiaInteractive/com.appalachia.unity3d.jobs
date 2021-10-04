@@ -1,4 +1,4 @@
-namespace Appalachia.Core.Globals.Jobs.TextureJobs.Structures
+namespace Appalachia.Jobs.TextureJobs.Structures
 {
     public struct RGB565
     {

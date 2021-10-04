@@ -7,7 +7,7 @@ using Unity.Mathematics;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.InitializeJob
+namespace Appalachia.Jobs.InitializeJob
 {
     [BurstCompile]
     public struct InitializeJob_double2x2_NA : IJobParallelFor

@@ -7,7 +7,7 @@ using Unity.Mathematics;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.Transfers
+namespace Appalachia.Jobs.Transfers
 {
     [BurstCompile]
     public struct TransferJob_float4x4_NA_float4x4_NA : IJobParallelFor

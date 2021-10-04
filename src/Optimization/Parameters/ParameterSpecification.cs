@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace Appalachia.Optimization.Parameters
+namespace Appalachia.Jobs.Optimization.Parameters
 {
     public struct ParameterSpecification //: IDisposable
     {

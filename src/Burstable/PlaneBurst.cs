@@ -8,7 +8,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Burstable
+namespace Appalachia.Jobs.Burstable
 {
     [Serializable]
     public struct PlaneBurst : IEquatable<PlaneBurst>

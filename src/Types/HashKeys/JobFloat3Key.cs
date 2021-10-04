@@ -5,7 +5,7 @@ using Unity.Mathematics;
 
 #endregion
 
-namespace Appalachia.Core.HashKeys
+namespace Appalachia.Jobs.Types.HashKeys
 {
     public struct JobFloat3Key : IEquatable<JobFloat3Key>
     {

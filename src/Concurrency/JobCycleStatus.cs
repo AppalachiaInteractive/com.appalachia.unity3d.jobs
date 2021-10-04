@@ -1,4 +1,4 @@
-namespace Appalachia.Core.Concurrency
+namespace Appalachia.Jobs.Concurrency
 {
     public enum JobCycleStatus : byte
     {

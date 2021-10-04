@@ -8,7 +8,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.Transformations
+namespace Appalachia.Jobs.Transformations
 {
     [BurstCompile]
     public struct TransformationJob_float4_Vector4 : IJobParallelFor

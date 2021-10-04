@@ -1,4 +1,4 @@
-namespace Appalachia.Optimization.Options
+namespace Appalachia.Jobs.Optimization.Options
 {
     public struct GridSearchOptions
     {

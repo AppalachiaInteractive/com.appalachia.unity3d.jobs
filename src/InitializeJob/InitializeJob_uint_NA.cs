@@ -6,7 +6,7 @@ using Unity.Jobs;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.InitializeJob
+namespace Appalachia.Jobs.InitializeJob
 {
     [BurstCompile]
     public struct InitializeJob_uint_NA : IJobParallelFor

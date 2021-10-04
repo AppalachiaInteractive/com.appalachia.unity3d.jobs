@@ -1,4 +1,4 @@
-namespace Appalachia.Core.Burstable
+namespace Appalachia.Jobs.Burstable
 {
     /// <summary>
     ///     Data describing a projection matrix.

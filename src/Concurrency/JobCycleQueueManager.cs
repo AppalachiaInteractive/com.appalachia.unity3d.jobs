@@ -2,16 +2,16 @@
 
 using System;
 using System.Collections.Generic;
-using Appalachia.Core.Behaviours;
+using Appalachia.Base.Behaviours;
 using Appalachia.Core.Collections.Native;
-using Appalachia.Core.Data.Stats.Implementations;
+using Appalachia.Core.Math.Stats.Implementations;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Profiling;
 
 #endregion
 
-namespace Appalachia.Core.Concurrency
+namespace Appalachia.Jobs.Concurrency
 {
     public class JobCycleQueueManager : InternalBase<JobCycleQueueManager>, IDisposable
     {

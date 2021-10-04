@@ -1,10 +1,10 @@
 #region
 
-using Appalachia.Optimization.Metadata;
+using Appalachia.Jobs.Optimization.Metadata;
 
 #endregion
 
-namespace Appalachia.Optimization.Options
+namespace Appalachia.Jobs.Optimization.Options
 {
     public struct OptimizationOptions
     {

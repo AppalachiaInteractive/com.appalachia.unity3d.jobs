@@ -7,7 +7,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Appalachia.Core.Jobs.Transformations
+namespace Appalachia.Jobs.Transformations
 {
     public static class LocalToWorldJob
     {

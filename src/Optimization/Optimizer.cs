@@ -2,9 +2,9 @@
 
 using System;
 using Appalachia.Core.Collections.Native;
-using Appalachia.Optimization.Metadata;
-using Appalachia.Optimization.Parameters;
-using Appalachia.Optimization.Utilities;
+using Appalachia.Jobs.Optimization.Metadata;
+using Appalachia.Jobs.Optimization.Parameters;
+using Appalachia.Jobs.Optimization.Utilities;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -12,7 +12,7 @@ using Unity.Profiling;
 
 #endregion
 
-namespace Appalachia.Optimization
+namespace Appalachia.Jobs.Optimization
 {
     public static class Optimizer
     {

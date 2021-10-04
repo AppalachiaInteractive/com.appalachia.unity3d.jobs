@@ -5,7 +5,7 @@ using UnityEditor;
 
 #endregion
 
-namespace Appalachia.Optimization.Utilities
+namespace Appalachia.Jobs.Optimization.Utilities
 {
     [InitializeOnLoad]
     public static class GLOBAL_RANDOM

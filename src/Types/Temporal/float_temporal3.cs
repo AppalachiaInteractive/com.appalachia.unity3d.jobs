@@ -2,7 +2,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Appalachia.Core.Jobs.Types.temporal
+namespace Appalachia.Jobs.Types.Temporal
 {
     [Serializable]
     public struct float_temporal3

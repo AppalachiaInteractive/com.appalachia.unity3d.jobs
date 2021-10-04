@@ -1,6 +1,6 @@
 #region
 
-using Appalachia.Core.Globals.Jobs.TextureJobs.Structures;
+using Appalachia.Jobs.TextureJobs.Structures;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -10,7 +10,7 @@ using Unity.Mathematics;
 
 // src: http://blog.ivank.net/fastest-gaussian-blur.html
 
-namespace Appalachia.Core.Globals.Jobs.TextureJobs.Jobs
+namespace Appalachia.Jobs.TextureJobs.Jobs
 {
     [BurstCompile]
     public struct GaussianBlurRGFloatJob : IJob

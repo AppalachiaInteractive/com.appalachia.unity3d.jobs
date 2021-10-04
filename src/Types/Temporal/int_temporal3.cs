@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Appalachia.Core.Jobs.Types.temporal
+namespace Appalachia.Jobs.Types.Temporal
 {
     [Serializable]
     public struct int_temporal3

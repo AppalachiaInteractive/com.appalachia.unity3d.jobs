@@ -1,4 +1,4 @@
-namespace Appalachia.Core.Jobs
+namespace Appalachia.Jobs
 {
     public static class JOB_SIZE
     {

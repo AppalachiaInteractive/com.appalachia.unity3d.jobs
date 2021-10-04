@@ -7,7 +7,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.Transfers
+namespace Appalachia.Jobs.Transfers
 {
     [BurstCompile]
     public struct TransferJob_Matrix4x4_NA_Matrix4x4_NA : IJobParallelFor

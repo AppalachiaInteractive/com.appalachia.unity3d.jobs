@@ -5,7 +5,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.Types.temporal
+namespace Appalachia.Jobs.Types.Temporal
 {
     [Serializable]
     public struct int_temporal

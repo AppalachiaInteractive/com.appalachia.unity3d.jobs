@@ -1,4 +1,4 @@
-namespace Appalachia.Optimization.Parameters
+namespace Appalachia.Jobs.Optimization.Parameters
 {
     public enum ParameterSpecificationType
     {

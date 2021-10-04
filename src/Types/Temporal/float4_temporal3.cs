@@ -1,11 +1,10 @@
 using System;
 using Appalachia.Core.Extensions;
-using Appalachia.Core.Geometry;
 using Appalachia.Utility.Constants;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Appalachia.Core.Jobs.Types.temporal
+namespace Appalachia.Jobs.Types.Temporal
 {
     [Serializable]
     public struct float4_temporal3

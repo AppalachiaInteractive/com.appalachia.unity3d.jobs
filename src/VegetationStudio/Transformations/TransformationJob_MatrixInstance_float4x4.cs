@@ -8,7 +8,7 @@ using Unity.Mathematics;
 
 #endregion
 
-namespace Appalachia.Core.Jobs.Transformations
+namespace Appalachia.Jobs.VegetationStudio.Transformations
 {
     [BurstCompile]
     public struct TransformationJob_MatrixInstance_float4x4 : IJobParallelFor

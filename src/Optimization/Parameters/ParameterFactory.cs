@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 #endregion
 
-namespace Appalachia.Optimization.Parameters
+namespace Appalachia.Jobs.Optimization.Parameters
 {
     [BurstCompile]
     public static class ParameterFactory

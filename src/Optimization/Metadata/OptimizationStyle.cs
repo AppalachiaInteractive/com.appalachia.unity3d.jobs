@@ -1,4 +1,4 @@
-namespace Appalachia.Optimization.Metadata
+namespace Appalachia.Jobs.Optimization.Metadata
 {
     public enum OptimizationStyle
     {
