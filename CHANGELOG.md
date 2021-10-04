@@ -12,6 +12,12 @@
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| ccdff539b9dd8882a21ad9e718b6a0057104e0bc | 2021-10-04 | Chris Schubert | Code cleanup and refactoring |
+
+
+ ## Tag: `v0.1.1`
+| Hash | Date | Author | Changes |
+|------|------|--------|---------|
 | 7a13170b0a58bb5a917dfd496f397125e9ed0118 | 2021-10-03 | Chris Schubert | Updating namespaces to match folder structure |
 | d911db8923c420a15a959be2f450cec25ce4e677 | 2021-10-03 | Chris Schubert | Organizing Appalachia packages for package management |
 | 38d9919621fb1ebfc8ba7debd2155699b81acd03 | 2021-10-03 | Chris Schubert | Initializing organization repository for project. |

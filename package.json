@@ -1,7 +1,7 @@
 {
   "name": "com.appalachia.unity3d.jobs",
   "displayName": "Appalachia.Jobs for Unity3D",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "unity": "2020.3",
   "description": "Common jobs and base classes to build new ones in Unitys job system.",
   "keywords": [
