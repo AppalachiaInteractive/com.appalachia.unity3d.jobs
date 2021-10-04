@@ -12,12 +12,12 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator int2(RG16 val)
         {
-            return new int2 {x = val.R, y = val.G};
+            return new() {x = val.R, y = val.G};
         }
 
         public static explicit operator RG16(int2 val)
         {
-            return new RG16 {R = (byte) val.x, G = (byte) val.y};
+            return new() {R = (byte) val.x, G = (byte) val.y};
         }
 
         public static RG16 operator +(RG16 lhs, RG16 rhs)

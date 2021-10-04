@@ -46,7 +46,6 @@ namespace Appalachia.Jobs.Burstable
             max = this.center + extents;
         }
 
-        
         /// <summary>
         ///     <para>Creates a new Bounds.</para>
         /// </summary>
@@ -60,7 +59,170 @@ namespace Appalachia.Jobs.Burstable
             min = this.center - extents;
             max = this.center + extents;
         }
-        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void Shift(float3 shift, float3 scale)
+        {
+            center += shift;
+            min += shift;
+            max += shift;
+            size *= scale;
+        }
+
+        /// <summary>
+        ///     <para>Sets the bounds to the min and max value of the box.</para>
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void SetMinMax(float3 min, float3 max)
+        {
+            extents = (max - min) * 0.5f;
+            center = min + extents;
+        }
+
+        /// <summary>
+        ///     <para>Grows the Bounds to include the point.</para>
+        /// </summary>
+        /// <param name="point"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void Encapsulate(float3 point)
+        {
+            SetMinMax(math.min(min, point), math.max(max, point));
+        }
+
+        /// <summary>
+        ///     <para>Grow the bounds to encapsulate the bounds.</para>
+        /// </summary>
+        /// <param name="bounds"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void Encapsulate(BoundsBurst bounds)
+        {
+            Encapsulate(bounds.max);
+            Encapsulate(bounds.min);
+        }
+
+        /// <summary>
+        ///     <para>Grow the bounds to encapsulate the bounds.</para>
+        /// </summary>
+        /// <param name="bounds"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void Encapsulate(Bounds bounds)
+        {
+            var c = bounds.center;
+            var ex = bounds.extents;
+
+            Encapsulate(c - ex);
+            Encapsulate(c + ex);
+        }
+
+        /// <summary>
+        ///     <para>Expand the bounds by increasing its size by amount along each side.</para>
+        /// </summary>
+        /// <param name="amount"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void Expand(float amount)
+        {
+            amount *= 0.5f;
+            extents += new float3(amount, amount, amount);
+        }
+
+        /// <summary>
+        ///     <para>Expand the bounds by increasing its size by amount along each side.</para>
+        /// </summary>
+        /// <param name="amount"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public void Expand(float3 amount)
+        {
+            extents += amount * 0.5f;
+        }
+
+        /// <summary>
+        ///     <para>Does another bounding box intersect with this bounding box?</para>
+        /// </summary>
+        /// <param name="bounds"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public bool Intersects(BoundsBurst bounds)
+        {
+            return (min.x <= (double) bounds.max.x) &&
+                   (max.x >= (double) bounds.min.x) &&
+                   (min.y <= (double) bounds.max.y) &&
+                   (max.y >= (double) bounds.min.y) &&
+                   (min.z <= (double) bounds.max.z) &&
+                   (max.z >= (double) bounds.min.z);
+        }
+
+        /// <summary>
+        ///     <para>Does another bounding box intersect with this bounding box?</para>
+        /// </summary>
+        /// <param name="bounds"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public bool Intersects(Bounds bounds)
+        {
+            return (min.x <= (double) bounds.max.x) &&
+                   (max.x >= (double) bounds.min.x) &&
+                   (min.y <= (double) bounds.max.y) &&
+                   (max.y >= (double) bounds.min.y) &&
+                   (min.z <= (double) bounds.max.z) &&
+                   (max.z >= (double) bounds.min.z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public bool Contains(Vector3 v)
+        {
+            return (v.x >= min.x) &&
+                   (v.x <= max.x) &&
+                   (v.y >= min.y) &&
+                   (v.y <= max.y) &&
+                   (v.z >= min.z) &&
+                   (v.z <= max.z);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public bool Contains(BoundsBurst b)
+        {
+            return Contains(b.min) && Contains(b.max);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public bool Contains(Bounds b)
+        {
+            return Contains(b.min) && Contains(b.max);
+        }
+
+        [BurstCompile]
+        public static implicit operator Bounds(BoundsBurst b)
+        {
+            return new(b.center, b.size);
+        }
+
+        [BurstCompile]
+        public static implicit operator BoundsBurst(Bounds b)
+        {
+            return new(b.center, b.size);
+        }
+
+        /// <summary>
+        ///     <para>Returns a nicely formatted string for the bounds.</para>
+        /// </summary>
+        /// <param name="format"></param>
+        public override string ToString()
+        {
+            return string.Format("Center: {0}, Extents: {1}", center, extents);
+        }
+
 #region IEquatable
 
         public override int GetHashCode()
@@ -127,155 +289,6 @@ namespace Appalachia.Jobs.Burstable
             return !(lhs == rhs);
         }
 
-        
 #endregion
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void Shift(float3 shift, float3 scale)
-        {
-            center += shift;
-            min += shift;
-            max += shift;
-            size *= scale;
-        }
-
-        /// <summary>
-        ///     <para>Sets the bounds to the min and max value of the box.</para>
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void SetMinMax(float3 min, float3 max)
-        {
-            extents = (max - min) * 0.5f;
-            center = min + extents;
-        }
-
-        /// <summary>
-        ///     <para>Grows the Bounds to include the point.</para>
-        /// </summary>
-        /// <param name="point"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void Encapsulate(float3 point)
-        {
-            SetMinMax(math.min(min, point), math.max(max, point));
-        }
-
-        /// <summary>
-        ///     <para>Grow the bounds to encapsulate the bounds.</para>
-        /// </summary>
-        /// <param name="bounds"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void Encapsulate(BoundsBurst bounds)
-        {
-            Encapsulate(bounds.max);
-            Encapsulate(bounds.min);
-        }
-
-        /// <summary>
-        ///     <para>Grow the bounds to encapsulate the bounds.</para>
-        /// </summary>
-        /// <param name="bounds"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void Encapsulate(Bounds bounds)
-        {
-            var c = bounds.center;
-            var ex = bounds.extents;
-
-            Encapsulate(c - ex);
-            Encapsulate(c + ex);
-        }
-
-        /// <summary>
-        ///     <para>Expand the bounds by increasing its size by amount along each side.</para>
-        /// </summary>
-        /// <param name="amount"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void Expand(float amount)
-        {
-            amount *= 0.5f;
-            extents += new float3(amount, amount, amount);
-        }
-
-        /// <summary>
-        ///     <para>Expand the bounds by increasing its size by amount along each side.</para>
-        /// </summary>
-        /// <param name="amount"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public void Expand(float3 amount)
-        {
-            extents += amount * 0.5f;
-        }
-
-        /// <summary>
-        ///     <para>Does another bounding box intersect with this bounding box?</para>
-        /// </summary>
-        /// <param name="bounds"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public bool Intersects(BoundsBurst bounds)
-        {
-            return (min.x <= (double) bounds.max.x) &&
-                   (max.x >= (double) bounds.min.x) &&
-                   (min.y <= (double) bounds.max.y) &&
-                   (max.y >= (double) bounds.min.y) &&
-                   (min.z <= (double) bounds.max.z) &&
-                   (max.z >= (double) bounds.min.z);
-        }
-
-        /// <summary>
-        ///     <para>Does another bounding box intersect with this bounding box?</para>
-        /// </summary>
-        /// <param name="bounds"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public bool Intersects(Bounds bounds)
-        {
-            return (min.x <= (double) bounds.max.x) &&
-                   (max.x >= (double) bounds.min.x) &&
-                   (min.y <= (double) bounds.max.y) &&
-                   (max.y >= (double) bounds.min.y) &&
-                   (min.z <= (double) bounds.max.z) &&
-                   (max.z >= (double) bounds.min.z);
-        }
-
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public bool Contains(Vector3 v)
-        {
-            return (v.x >= min.x) && (v.x <= max.x) && (v.y >= min.y) && (v.y <= max.y) && (v.z >= min.z) && (v.z <= max.z);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public bool Contains(BoundsBurst b)
-        {
-            return Contains(b.min) && Contains(b.max);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public bool Contains(Bounds b)
-        {
-            return Contains(b.min) && Contains(b.max);
-        }
-
-        [BurstCompile]
-        public static implicit operator Bounds(BoundsBurst b)
-        {
-            return new Bounds(b.center, b.size);
-        }
-        
-        [BurstCompile]
-        public static implicit operator BoundsBurst(Bounds b)
-        {
-            return new BoundsBurst(b.center, b.size);
-        }
-
-        /// <summary>
-        ///     <para>Returns a nicely formatted string for the bounds.</para>
-        /// </summary>
-        /// <param name="format"></param>
-        public override string ToString()
-        {
-            return string.Format("Center: {0}, Extents: {1}", center, extents);
-        }
- 
     }
 }

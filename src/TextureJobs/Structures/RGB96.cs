@@ -12,12 +12,12 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator float3(RGB96 val)
         {
-            return new float3 {x = val.R, y = val.G, z = val.B};
+            return new() {x = val.R, y = val.G, z = val.B};
         }
 
         public static explicit operator RGB96(float3 val)
         {
-            return new RGB96 {R = val.x, G = val.y, B = val.z};
+            return new() {R = val.x, G = val.y, B = val.z};
         }
 
         public static RGB96 operator +(RGB96 lhs, RGB96 rhs)

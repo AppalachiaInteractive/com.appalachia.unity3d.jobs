@@ -13,7 +13,7 @@ namespace Appalachia.Jobs.Types.Temporal
         [SerializeField] private float2 _value1;
         [SerializeField] private float2 _value2;
         [SerializeField] private float2 _value3;
-        
+
         public float2 value1 => _value1;
         public float2 value2 => _value2;
         public float2 value3 => _value3;
@@ -21,7 +21,7 @@ namespace Appalachia.Jobs.Types.Temporal
         public float2 delta => value - _value1;
         public float2 delta1 => _value1 - _value2;
         public float2 delta2 => _value2 - _value3;
-        
+
         public bool hasAnyDifference => hasDifference1 || hasDifference2 || hasDifference3;
         public bool hasDifference1 => (math.abs(value - _value1) > float2c.epsilon).all();
         public bool hasDifference2 => (math.abs(_value1 - _value2) > float2c.epsilon).all();

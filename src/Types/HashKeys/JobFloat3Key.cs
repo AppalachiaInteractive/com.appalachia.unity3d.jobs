@@ -59,7 +59,10 @@ namespace Appalachia.Jobs.Types.HashKeys
 
         public bool Equals(JobFloat3Key other)
         {
-            return (x == other.x) && (y == other.y) && (z == other.z) && (groupScale == other.groupScale);
+            return (x == other.x) &&
+                   (y == other.y) &&
+                   (z == other.z) &&
+                   (groupScale == other.groupScale);
         }
 
         public override bool Equals(object obj)

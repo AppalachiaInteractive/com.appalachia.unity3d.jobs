@@ -12,7 +12,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator float4(RGBAFloat val)
         {
-            return new float4
+            return new()
             {
                 x = val.R,
                 y = val.G,
@@ -23,7 +23,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator RGBAFloat(float4 val)
         {
-            return new RGBAFloat
+            return new()
             {
                 R = val.x,
                 G = val.y,
@@ -34,12 +34,22 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static RGBAFloat operator +(RGBAFloat lhs, RGBAFloat rhs)
         {
-            return (RGBAFloat) new float4(lhs.R + rhs.R, lhs.G + rhs.G, lhs.B + rhs.B, lhs.A + rhs.A);
+            return (RGBAFloat) new float4(
+                lhs.R + rhs.R,
+                lhs.G + rhs.G,
+                lhs.B + rhs.B,
+                lhs.A + rhs.A
+            );
         }
 
         public static RGBAFloat operator -(RGBAFloat lhs, RGBAFloat rhs)
         {
-            return (RGBAFloat) new float4(lhs.R - rhs.R, lhs.G - rhs.G, lhs.B - rhs.B, lhs.A - rhs.A);
+            return (RGBAFloat) new float4(
+                lhs.R - rhs.R,
+                lhs.G - rhs.G,
+                lhs.B - rhs.B,
+                lhs.A - rhs.A
+            );
         }
     }
 }

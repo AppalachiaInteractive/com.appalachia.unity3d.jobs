@@ -81,11 +81,17 @@ namespace Appalachia.Jobs.Burstable
         }
 
         /// <summary>
+        ///     <para>Returns a copy of the plane that faces in the opposite direction.</para>
+        /// </summary>
+        public Plane flipped => new(-normal, -distance);
+
+        /// <summary>
         ///     <para>Sets a plane using a point that lies within it along with a normal to orient it.</para>
         /// </summary>
         /// <param name="normal">The plane's normal vector.</param>
         /// <param name="point">A point that lies on the plane.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public void SetNormalAndPosition(float3 normal, float3 point)
         {
             this.normal = math.normalize(normal);
@@ -99,7 +105,8 @@ namespace Appalachia.Jobs.Burstable
         /// <param name="a">First point in clockwise order.</param>
         /// <param name="b">Second point in clockwise order.</param>
         /// <param name="c">Third point in clockwise order.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public void Set3Points(float3 a, float3 b, float3 c)
         {
             normal = math.normalize(math.cross(b - a, c - a));
@@ -110,7 +117,8 @@ namespace Appalachia.Jobs.Burstable
         /// <summary>
         ///     <para>Makes the plane face in the opposite direction.</para>
         /// </summary>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public void Flip()
         {
             normal = -normal;
@@ -118,15 +126,11 @@ namespace Appalachia.Jobs.Burstable
         }
 
         /// <summary>
-        ///     <para>Returns a copy of the plane that faces in the opposite direction.</para>
-        /// </summary>
-        public Plane flipped => new Plane(-normal, -distance);
-
-        /// <summary>
         ///     <para>Moves the plane in space by the translation vector.</para>
         /// </summary>
         /// <param name="translation">The offset in space to move the plane with.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public void Translate(float3 translation)
         {
             distance += math.dot(normal, translation);
@@ -141,10 +145,11 @@ namespace Appalachia.Jobs.Burstable
         /// <returns>
         ///     <para>The translated plane.</para>
         /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public static Plane Translate(PlaneBurst plane, float3 translation)
         {
-            return new Plane(plane.normal, plane.distance += math.dot(plane.normal, translation));
+            return new(plane.normal, plane.distance += math.dot(plane.normal, translation));
         }
 
         /// <summary>
@@ -154,7 +159,8 @@ namespace Appalachia.Jobs.Burstable
         /// <returns>
         ///     <para>A point on the plane that is closest to point.</para>
         /// </returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public float3 ClosestPointOnPlane(float3 point)
         {
             var num = math.dot(normal, point) + distance;
@@ -165,7 +171,8 @@ namespace Appalachia.Jobs.Burstable
         ///     <para>Returns a signed distance from plane to point.</para>
         /// </summary>
         /// <param name="point"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public float GetDistanceToPoint(float3 point)
         {
             return math.dot(normal, point) + distance;
@@ -175,7 +182,8 @@ namespace Appalachia.Jobs.Burstable
         ///     <para>Is a point on the positive side of the plane?</para>
         /// </summary>
         /// <param name="point"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public bool GetSide(float3 point)
         {
             return (math.dot(normal, point) + (double) distance) > 0.0;
@@ -186,15 +194,18 @@ namespace Appalachia.Jobs.Burstable
         /// </summary>
         /// <param name="inPt0"></param>
         /// <param name="inPt1"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public bool SameSide(float3 inPt0, float3 inPt1)
         {
             var distanceToPoint1 = GetDistanceToPoint(inPt0);
             var distanceToPoint2 = GetDistanceToPoint(inPt1);
-            return ((distanceToPoint1 > 0.0) && (distanceToPoint2 > 0.0)) || ((distanceToPoint1 <= 0.0) && (distanceToPoint2 <= 0.0));
+            return ((distanceToPoint1 > 0.0) && (distanceToPoint2 > 0.0)) ||
+                   ((distanceToPoint1 <= 0.0) && (distanceToPoint2 <= 0.0));
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public bool Raycast(Ray ray, out float enter)
         {
             var a = math.dot(ray.direction, normal);
@@ -218,8 +229,12 @@ namespace Appalachia.Jobs.Burstable
         /// <param name="lineVec"></param>
         /// <param name="plane2"></param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
-        public bool PlanePlaneIntersection(out float3 linePoint, out float3 lineVec, PlaneBurst plane2)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
+        public bool PlanePlaneIntersection(
+            out float3 linePoint,
+            out float3 lineVec,
+            PlaneBurst plane2)
         {
             linePoint = float3.zero;
             lineVec = float3.zero;
@@ -289,20 +304,21 @@ namespace Appalachia.Jobs.Burstable
         [BurstDiscard]
         public string ToShortString()
         {
-            return $"(n:({(object) normal.x:F1}, {(object) normal.y:F1}, {(object) normal.z:F1}), d:{(object) distance:F1})";
+            return $"(n:({normal.x:F1}, {normal.y:F1}, {normal.z:F1}), d:{distance:F1})";
         }
 
         [BurstDiscard]
         public override string ToString()
         {
-            return $"(normal:({(object) normal.x:F1}, {(object) normal.y:F1}, {(object) normal.z:F1}), distance:{(object) distance:F1})";
+            return
+                $"(normal:({normal.x:F1}, {normal.y:F1}, {normal.z:F1}), distance:{distance:F1})";
         }
 
         [BurstDiscard]
         public string ToString(string format)
         {
             return
-                $"(normal:({(object) normal.x.ToString(format)}, {(object) normal.y.ToString(format)}, {(object) normal.z.ToString(format)}), distance:{(object) distance.ToString(format)})";
+                $"(normal:({normal.x.ToString(format)}, {normal.y.ToString(format)}, {normal.z.ToString(format)}), distance:{distance.ToString(format)})";
         }
 
 #endregion

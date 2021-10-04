@@ -35,7 +35,7 @@ namespace Appalachia.Jobs.Optimization.Utilities
 
         private NativeArray<double> randoms;
 
-        private Random random;
+        private readonly Random random;
 
         [BurstCompile]
         private struct PopulateJob : IJob

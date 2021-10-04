@@ -46,19 +46,22 @@ namespace Appalachia.Jobs.Burstable
                                     ? near
                                     : far;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public bool Inside(BoundsBurst bounds)
         {
             return Test(bounds, false) == FrustumRelation.Inside;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public bool Outside(BoundsBurst bounds)
         {
             return Test(bounds, false) == FrustumRelation.Outside;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining), BurstCompile]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [BurstCompile]
         public bool Intersecting(BoundsBurst bounds)
         {
             return Test(bounds, true) == FrustumRelation.Intersect;

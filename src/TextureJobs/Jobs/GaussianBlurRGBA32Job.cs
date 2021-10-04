@@ -25,7 +25,11 @@ namespace Appalachia.Jobs.TextureJobs.Jobs
         [DeallocateOnJobCompletion]
         private NativeArray<float> boxes;
 
-        public GaussianBlurRGBA32Job(NativeArray<RGBA32> data, int texture_width, int texture_height, float sigma)
+        public GaussianBlurRGBA32Job(
+            NativeArray<RGBA32> data,
+            int texture_width,
+            int texture_height,
+            float sigma)
         {
             results = data;
             copy = new NativeArray<RGBA32>(data, Allocator.Persistent);
@@ -89,7 +93,9 @@ namespace Appalachia.Jobs.TextureJobs.Jobs
 
                 for (var j = r + 1; j < (w - r); j++)
                 {
-                    if ((li >= (src.Length - 1)) || (ri >= (src.Length - 1)) || (ti >= (dst.Length - 1)))
+                    if ((li >= (src.Length - 1)) ||
+                        (ri >= (src.Length - 1)) ||
+                        (ti >= (dst.Length - 1)))
                     {
                         continue;
                     }
@@ -166,7 +172,8 @@ namespace Appalachia.Jobs.TextureJobs.Jobs
 
             var wu = wl + 2;
 
-            var mIdeal = ((12 * sigma * sigma) - (n * wl * wl) - (4 * n * wl) - (3 * n)) / ((-4 * wl) - 4);
+            var mIdeal = ((12 * sigma * sigma) - (n * wl * wl) - (4 * n * wl) - (3 * n)) /
+                         ((-4 * wl) - 4);
             var m = math.round(mIdeal);
 
             for (var i = 0; i < n; i++)

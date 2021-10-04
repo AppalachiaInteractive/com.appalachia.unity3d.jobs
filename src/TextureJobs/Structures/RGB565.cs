@@ -6,8 +6,14 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public RGB565(byte R, byte G, byte B)
         {
-            Value = (ushort) (((BIT(4, R) | BIT(3, R) | BIT(2, R) | BIT(1, R) | BIT(0,             R)) << 11) |
-                              ((BIT(5, G) | BIT(4, G) | BIT(3, G) | BIT(2, G) | BIT(1, G) | BIT(0, G)) << 5) |
+            Value = (ushort) (((BIT(4, R) | BIT(3, R) | BIT(2, R) | BIT(1, R) | BIT(0, R)) << 11) |
+                              ((BIT(5, G) |
+                                BIT(4, G) |
+                                BIT(3, G) |
+                                BIT(2, G) |
+                                BIT(1, G) |
+                                BIT(0, G)) <<
+                               5) |
                               BIT(4, B) |
                               BIT(3, B) |
                               BIT(2, B) |

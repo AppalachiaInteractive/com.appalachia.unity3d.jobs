@@ -16,16 +16,20 @@ namespace Appalachia.Jobs.TextureJobs.Jobs
     public struct GaussianBlurRGHalfJob : IJob
     {
         [DeallocateOnJobCompletion]
-        private NativeArray<RGHalf> copy;
+        private readonly NativeArray<RGHalf> copy;
 
-        private NativeArray<RGHalf> results;
+        private readonly NativeArray<RGHalf> results;
         private readonly int w, h;
         private readonly float sigma;
 
         [DeallocateOnJobCompletion]
         private NativeArray<float> boxes;
 
-        public GaussianBlurRGHalfJob(NativeArray<RGHalf> data, int texture_width, int texture_height, float sigma)
+        public GaussianBlurRGHalfJob(
+            NativeArray<RGHalf> data,
+            int texture_width,
+            int texture_height,
+            float sigma)
         {
             results = data;
             copy = new NativeArray<RGHalf>(data, Allocator.Persistent);
@@ -140,7 +144,8 @@ namespace Appalachia.Jobs.TextureJobs.Jobs
 
             var wu = wl + 2;
 
-            var mIdeal = ((12 * sigma * sigma) - (n * wl * wl) - (4 * n * wl) - (3 * n)) / ((-4 * wl) - 4);
+            var mIdeal = ((12 * sigma * sigma) - (n * wl * wl) - (4 * n * wl) - (3 * n)) /
+                         ((-4 * wl) - 4);
             var m = math.round(mIdeal);
 
             for (var i = 0; i < n; i++)

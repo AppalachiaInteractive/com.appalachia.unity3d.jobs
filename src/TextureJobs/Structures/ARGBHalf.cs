@@ -12,7 +12,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator half4(ARGBHalf val)
         {
-            return new half4
+            return new()
             {
                 x = val.A,
                 y = val.R,
@@ -23,7 +23,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator ARGBHalf(half4 val)
         {
-            return new ARGBHalf
+            return new()
             {
                 A = val.x,
                 R = val.y,
@@ -34,12 +34,22 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static ARGBHalf operator +(ARGBHalf lhs, ARGBHalf rhs)
         {
-            return (ARGBHalf) new half4((half) (lhs.A + rhs.A), (half) (lhs.R + rhs.R), (half) (lhs.G + rhs.G), (half) (lhs.B + rhs.B));
+            return (ARGBHalf) new half4(
+                (half) (lhs.A + rhs.A),
+                (half) (lhs.R + rhs.R),
+                (half) (lhs.G + rhs.G),
+                (half) (lhs.B + rhs.B)
+            );
         }
 
         public static ARGBHalf operator -(ARGBHalf lhs, ARGBHalf rhs)
         {
-            return (ARGBHalf) new half4((half) (lhs.A - rhs.A), (half) (lhs.R - rhs.R), (half) (lhs.G - rhs.G), (half) (lhs.B - rhs.B));
+            return (ARGBHalf) new half4(
+                (half) (lhs.A - rhs.A),
+                (half) (lhs.R - rhs.R),
+                (half) (lhs.G - rhs.G),
+                (half) (lhs.B - rhs.B)
+            );
         }
     }
 }

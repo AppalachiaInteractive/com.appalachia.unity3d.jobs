@@ -30,7 +30,13 @@ namespace Appalachia.Jobs.Optimization.Parameters
                 case TransformType.Log10:
                     return Log10Transform(samplerType, min, max, parameterType, random);
                 case TransformType.ExponentialAverage:
-                    return ExponentialAverageTransform(samplerType, min, max, parameterType, random);
+                    return ExponentialAverageTransform(
+                        samplerType,
+                        min,
+                        max,
+                        parameterType,
+                        random
+                    );
                 default:
                     throw new ArgumentException("Unsupported transform type.");
             }
@@ -41,7 +47,12 @@ namespace Appalachia.Jobs.Optimization.Parameters
         ///     Returns the samplers value directly.
         /// </summary>
         /// <returns></returns>
-        private static double LinearTransform(ParameterSamplerType samplerType, double min, double max, ParameterType parameterType, double random)
+        private static double LinearTransform(
+            ParameterSamplerType samplerType,
+            double min,
+            double max,
+            ParameterType parameterType,
+            double random)
         {
             return Sample(samplerType, min, max, parameterType, random);
         }
@@ -50,11 +61,19 @@ namespace Appalachia.Jobs.Optimization.Parameters
         ///     Transform to Log10 scale. For ranges with a large difference in numerical scale, like min: 0.0001 and max: 1.0.
         /// </summary>
         /// <returns></returns>
-        private static double Log10Transform(ParameterSamplerType samplerType, double min, double max, ParameterType parameterType, double random)
+        private static double Log10Transform(
+            ParameterSamplerType samplerType,
+            double min,
+            double max,
+            ParameterType parameterType,
+            double random)
         {
             if ((min <= 0) || (max <= 0))
             {
-                throw new ArgumentException("logarithmic scale requires min: " + $"{min} and max: {max} to be larger than zero");
+                throw new ArgumentException(
+                    "logarithmic scale requires min: " +
+                    $"{min} and max: {max} to be larger than zero"
+                );
             }
 
             var a = math.log10(min);
@@ -78,7 +97,10 @@ namespace Appalachia.Jobs.Optimization.Parameters
         {
             if ((min >= 1) || (max >= 1))
             {
-                throw new ArgumentException("ExponentialAverage scale requires min: " + $" {min} and max: {max} to be smaller than one");
+                throw new ArgumentException(
+                    "ExponentialAverage scale requires min: " +
+                    $" {min} and max: {max} to be smaller than one"
+                );
             }
 
             var a = math.log10(1.0 - max);
@@ -88,7 +110,12 @@ namespace Appalachia.Jobs.Optimization.Parameters
             return 1.0 - math.pow(10, r);
         }
 
-        public static double Sample(ParameterSamplerType type, double min, double max, ParameterType parameterType, double random)
+        public static double Sample(
+            ParameterSamplerType type,
+            double min,
+            double max,
+            ParameterType parameterType,
+            double random)
         {
             switch (type)
             {
@@ -103,7 +130,11 @@ namespace Appalachia.Jobs.Optimization.Parameters
         ///     Sample values random uniformly between min and max.
         /// </summary>
         /// <returns></returns>
-        private static double RandomUniform_Sample(double min, double max, ParameterType parameterType, double random)
+        private static double RandomUniform_Sample(
+            double min,
+            double max,
+            ParameterType parameterType,
+            double random)
         {
             if (min >= max)
             {

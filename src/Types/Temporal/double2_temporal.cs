@@ -15,11 +15,11 @@ namespace Appalachia.Jobs.Types.Temporal
     {
         [SerializeField] public double2 value;
         [SerializeField] private double2 _value1;
-        
+
         public double2 value1 => _value1;
 
         public double2 delta => value - _value1;
-        
+
         public bool hasAnyDifference => hasDifference1;
         public bool hasDifference1 => (math.abs(value - _value1) > double2c.epsilon).all();
 

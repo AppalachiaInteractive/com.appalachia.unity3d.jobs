@@ -12,12 +12,12 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator half2(RGHalf val)
         {
-            return new half2 {x = val.R, y = val.G};
+            return new() {x = val.R, y = val.G};
         }
 
         public static explicit operator RGHalf(half2 val)
         {
-            return new RGHalf {R = val.x, G = val.y};
+            return new() {R = val.x, G = val.y};
         }
 
         public static RGHalf operator +(RGHalf lhs, RGHalf rhs)

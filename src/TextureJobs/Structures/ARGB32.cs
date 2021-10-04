@@ -12,7 +12,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator int4(ARGB32 val)
         {
-            return new int4
+            return new()
             {
                 x = val.A,
                 y = val.R,
@@ -23,7 +23,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator ARGB32(int4 val)
         {
-            return new ARGB32
+            return new()
             {
                 A = (byte) val.x,
                 R = (byte) val.y,

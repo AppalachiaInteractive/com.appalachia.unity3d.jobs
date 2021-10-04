@@ -11,7 +11,7 @@ namespace Appalachia.Jobs.Types.Temporal
         [SerializeField] private int _value2;
         [SerializeField] private int _value3;
         [SerializeField] private int _value4;
-        
+
         public int value1 => _value1;
         public int value2 => _value2;
         public int value3 => _value3;
@@ -21,8 +21,10 @@ namespace Appalachia.Jobs.Types.Temporal
         public int delta1 => _value1 - _value2;
         public int delta2 => _value2 - _value3;
         public int delta3 => _value3 - _value4;
-        
-        public bool hasAnyDifference => hasDifference1 || hasDifference2 || hasDifference3 || hasDifference4;
+
+        public bool hasAnyDifference =>
+            hasDifference1 || hasDifference2 || hasDifference3 || hasDifference4;
+
         public bool hasDifference1 => _value1 != value;
         public bool hasDifference2 => _value2 != _value1;
         public bool hasDifference3 => _value3 != _value2;

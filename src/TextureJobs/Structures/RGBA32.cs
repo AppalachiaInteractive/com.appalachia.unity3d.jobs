@@ -12,7 +12,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator int4(RGBA32 val)
         {
-            return new int4
+            return new()
             {
                 x = val.R,
                 y = val.G,
@@ -23,7 +23,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator RGBA32(int4 val)
         {
-            return new RGBA32
+            return new()
             {
                 R = (byte) val.x,
                 G = (byte) val.y,

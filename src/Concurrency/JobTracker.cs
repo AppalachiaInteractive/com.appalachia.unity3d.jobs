@@ -11,14 +11,13 @@ namespace Appalachia.Jobs.Concurrency
 {
     public static class JobTracker
     {
-        private static List<JobCycleQueueManager> _queueManagers = new List<JobCycleQueueManager>();
-        
         private const int _initialJob = 32;
+        private static List<JobCycleQueueManager> _queueManagers = new();
 
         private static NonSerializedAppaLookup<string, JobHandle> _jobs;
 
         [ExecuteOnEnable]
-        static void Initialize()
+        private static void Initialize()
         {
             _jobs = new NonSerializedAppaLookup<string, JobHandle>();
         }
@@ -81,10 +80,10 @@ namespace Appalachia.Jobs.Concurrency
             {
                 _queueManagers = new List<JobCycleQueueManager>();
             }
-            
+
             _queueManagers.Add(queueManager);
         }
-        
+
         [ExecuteOnDisable]
         public static void Dispose()
         {

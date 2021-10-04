@@ -17,50 +17,82 @@ namespace Appalachia.Jobs.Concurrency
     {
         private const string _PRF_PFX = nameof(JobCycleQueueManager) + ".";
 
-        private static readonly ProfilerMarker _PRF_Dispose = new ProfilerMarker(_PRF_PFX + nameof(Dispose));
+        private static readonly ProfilerMarker _PRF_Dispose = new(_PRF_PFX + nameof(Dispose));
 
-        private static readonly ProfilerMarker _PRF_Populate = new ProfilerMarker(_PRF_PFX + nameof(Populate));
+        private static readonly ProfilerMarker _PRF_Populate = new(_PRF_PFX + nameof(Populate));
 
-        private static readonly ProfilerMarker _PRF_Skip = new ProfilerMarker(_PRF_PFX + nameof(Skip));
+        private static readonly ProfilerMarker _PRF_Skip = new(_PRF_PFX + nameof(Skip));
 
-        private static readonly ProfilerMarker _PRF_SetActive = new ProfilerMarker(_PRF_PFX + nameof(SetActive));
+        private static readonly ProfilerMarker _PRF_SetActive = new(_PRF_PFX + nameof(SetActive));
 
-        private static readonly ProfilerMarker _PRF_EnsureCompleted = new ProfilerMarker(_PRF_PFX + nameof(EnsureCompleted));
+        private static readonly ProfilerMarker _PRF_EnsureCompleted =
+            new(_PRF_PFX + nameof(EnsureCompleted));
 
-        private static readonly ProfilerMarker _PRF_ResetCompleted = new ProfilerMarker(_PRF_PFX + nameof(ResetCompleted));
+        private static readonly ProfilerMarker _PRF_ResetCompleted =
+            new(_PRF_PFX + nameof(ResetCompleted));
 
-        private static readonly ProfilerMarker _PRF_CheckTiming = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming));
+        private static readonly ProfilerMarker _PRF_CheckTiming =
+            new(_PRF_PFX + nameof(CheckTiming));
 
-        private static readonly ProfilerMarker _PRF_CheckWork = new ProfilerMarker(_PRF_PFX + nameof(CheckWork));
+        private static readonly ProfilerMarker _PRF_CheckWork = new(_PRF_PFX + nameof(CheckWork));
 
-        private static readonly ProfilerMarker _PRF_ForceCompleteAll = new ProfilerMarker(_PRF_PFX + nameof(ForceCompleteAll));
+        private static readonly ProfilerMarker _PRF_ForceCompleteAll =
+            new(_PRF_PFX + nameof(ForceCompleteAll));
 
-        private static readonly ProfilerMarker _PRF_CurrentCycleTime = new ProfilerMarker(_PRF_PFX + nameof(CurrentCycleTime));
+        private static readonly ProfilerMarker _PRF_CurrentCycleTime =
+            new(_PRF_PFX + nameof(CurrentCycleTime));
 
-        private static readonly ProfilerMarker _PRF_ToString = new ProfilerMarker(_PRF_PFX + nameof(ToString));
+        private static readonly ProfilerMarker _PRF_ToString = new(_PRF_PFX + nameof(ToString));
 
-        private static readonly ProfilerMarker _PRF_CountsString = new ProfilerMarker(_PRF_PFX + nameof(CountsString));
+        private static readonly ProfilerMarker _PRF_CountsString =
+            new(_PRF_PFX + nameof(CountsString));
 
-        private static readonly ProfilerMarker _PRF_TimingsString = new ProfilerMarker(_PRF_PFX + nameof(TimingsString));
+        private static readonly ProfilerMarker _PRF_TimingsString =
+            new(_PRF_PFX + nameof(TimingsString));
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_UTCNow =
+            new(_PRF_PFX + nameof(CheckTiming) + ".UTCNow");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_GetStatus =
+            new(_PRF_PFX + nameof(CheckTiming) + ".GetStatus");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_GetCycleTime =
+            new(_PRF_PFX + nameof(CheckTiming) + ".GetCycleTime");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional =
+            new(_PRF_PFX + nameof(CheckTiming) + ".Conditional");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional_Status =
+            new(_PRF_PFX + nameof(CheckTiming) + ".Conditional.Status");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional_TimeTracked =
+            new(_PRF_PFX + nameof(CheckTiming) + ".Conditional.TimeTracked");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional_Completed =
+            new(_PRF_PFX + nameof(CheckTiming) + ".Conditional.Completed");
+
+        private static readonly ProfilerMarker _PRF_CheckTiming_Track =
+            new(_PRF_PFX + nameof(CheckTiming) + ".Track");
+
+        [NonSerialized] private Queue<int> _active;
+        [NonSerialized] private Queue<int> _completed;
+
+        private string _countString;
+        [NonSerialized] private long[] _cycleTimings;
+        [NonSerialized] private Queue<int> _delayed;
+        [NonSerialized] private double _fastestCycleTime;
+
+        [NonSerialized] private NativeList<JobHandle> _handles;
+
+        [NonSerialized] private Queue<int> _inactive;
 
         //[NonSerialized] private int[] _iArray;
 
         [NonSerialized] private JobCycleStatus[] _status;
-
-        [NonSerialized] private Queue<int> _inactive;
-        [NonSerialized] private Queue<int> _active;
-        [NonSerialized] private Queue<int> _completed;
         [NonSerialized] private Queue<int> _swap;
-        [NonSerialized] private Queue<int> _delayed;
-
-        [NonSerialized] private NativeList<JobHandle> _handles;
 
         [NonSerialized] private bool[] _timeTracked;
-        [NonSerialized] private long[] _cycleTimings;
-        [NonSerialized] private double _fastestCycleTime;
         [NonSerialized] private doubleStatsTracker _timeTracker;
-
-        private string _countString;
         private string _timingString;
 
         public JobCycleQueueManager()
@@ -139,7 +171,9 @@ namespace Appalachia.Jobs.Concurrency
 
                 if (i != next)
                 {
-                    throw new NotSupportedException($"Incorrect job order. [{i}] was skipped but [{next}] was next inactive.");
+                    throw new NotSupportedException(
+                        $"Incorrect job order. [{i}] was skipped but [{next}] was next inactive."
+                    );
                 }
 
                 _cycleTimings[i] = DateTime.Now.AddSeconds(padDelay).ToFileTimeUtc();
@@ -157,7 +191,9 @@ namespace Appalachia.Jobs.Concurrency
 
                 if (i != next)
                 {
-                    throw new NotSupportedException($"Incorrect job order. [{i}] was queued but [{next}] was next inactive.");
+                    throw new NotSupportedException(
+                        $"Incorrect job order. [{i}] was queued but [{next}] was next inactive."
+                    );
                 }
 
                 _cycleTimings[i] = DateTime.Now.ToFileTimeUtc();
@@ -185,7 +221,9 @@ namespace Appalachia.Jobs.Concurrency
 
                 if (i != next)
                 {
-                    throw new NotSupportedException($"Incorrect job order. [{i}] was queued but [{next}] was next completed.");
+                    throw new NotSupportedException(
+                        $"Incorrect job order. [{i}] was queued but [{next}] was next completed."
+                    );
                 }
 
                 _completed.Dequeue();
@@ -205,16 +243,6 @@ namespace Appalachia.Jobs.Concurrency
             }
         }
 
-        private static readonly ProfilerMarker _PRF_CheckTiming_UTCNow = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".UTCNow");
-        private static readonly ProfilerMarker _PRF_CheckTiming_GetStatus = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".GetStatus");
-        private static readonly ProfilerMarker _PRF_CheckTiming_GetCycleTime = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".GetCycleTime");
-        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".Conditional");
-        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional_Status = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".Conditional.Status");
-        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional_TimeTracked = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".Conditional.TimeTracked");
-        private static readonly ProfilerMarker _PRF_CheckTiming_Conditional_Completed = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".Conditional.Completed");
-        private static readonly ProfilerMarker _PRF_CheckTiming_Track = new ProfilerMarker(_PRF_PFX + nameof(CheckTiming) + ".Track");
-        
-        
         public void CheckTiming()
         {
             using (_PRF_CheckTiming.Auto())
@@ -227,7 +255,7 @@ namespace Appalachia.Jobs.Concurrency
                 }
 
                 var length = _status.Length;
-                
+
                 for (var i = 0; i < length; i++)
                 {
                     JobCycleStatus status;
@@ -246,7 +274,7 @@ namespace Appalachia.Jobs.Concurrency
                             using (_PRF_CheckTiming_Conditional_Status.Auto())
                             {
                                 return status == JobCycleStatus.Active;
-                            }   
+                            }
                         }
 
                         bool CheckTiming_Conditional_TimeTracked()
@@ -259,21 +287,21 @@ namespace Appalachia.Jobs.Concurrency
 
                         bool CheckTiming_Conditional_Completed()
                         {
-
                             using (_PRF_CheckTiming_Conditional_Completed.Auto())
                             {
                                 return _handles[i].IsCompleted;
                             }
-                        }                           
+                        }
 
+                        shouldCheckTime = CheckTiming_Conditional_Status() &&
+                                          CheckTiming_Conditional_TimeTracked() &&
+                                          CheckTiming_Conditional_Completed();
+                    }
 
-                        shouldCheckTime = CheckTiming_Conditional_Status() && CheckTiming_Conditional_TimeTracked() && CheckTiming_Conditional_Completed();
-                    } 
-                    
                     if (shouldCheckTime)
                     {
                         double currentCycleTime;
-                        
+
                         using (_PRF_CheckTiming_GetCycleTime.Auto())
                         {
                             currentCycleTime = CurrentCycleTime(i, utcNow);
@@ -398,8 +426,8 @@ namespace Appalachia.Jobs.Concurrency
         {
             using (_PRF_CountsString.Auto())
             {
-                return $"Inactive {InactiveCount} | Active {ActiveCount} | Complete {CompletedCount} | Delayed {DelayedCount}";
-                
+                return
+                    $"Inactive {InactiveCount} | Active {ActiveCount} | Complete {CompletedCount} | Delayed {DelayedCount}";
             }
         }
 
@@ -407,7 +435,8 @@ namespace Appalachia.Jobs.Concurrency
         {
             using (_PRF_TimingsString.Auto())
             {
-                return $"Average {_timeTracker.Average:F2}ms | Min {_timeTracker.Minimum:F2}ms | Max {_timeTracker.Maximum:F2}ms";
+                return
+                    $"Average {_timeTracker.Average:F2}ms | Min {_timeTracker.Minimum:F2}ms | Max {_timeTracker.Maximum:F2}ms";
             }
         }
     }

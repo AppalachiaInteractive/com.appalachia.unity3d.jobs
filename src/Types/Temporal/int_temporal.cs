@@ -12,11 +12,11 @@ namespace Appalachia.Jobs.Types.Temporal
     {
         [SerializeField] public int value;
         [SerializeField] private int _value1;
-        
+
         public int value1 => _value1;
 
         public int delta => value - _value1;
-        
+
         public bool hasAnyDifference => hasDifference1;
         public bool hasDifference1 => _value1 != value;
 

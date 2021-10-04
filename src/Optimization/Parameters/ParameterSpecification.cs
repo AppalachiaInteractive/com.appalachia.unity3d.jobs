@@ -41,7 +41,11 @@ namespace Appalachia.Jobs.Optimization.Parameters
             }
         }*/
 
-        public ParameterSpecification(TransformType transformType, ParameterType parameterType, double minimum, double maximum)
+        public ParameterSpecification(
+            TransformType transformType,
+            ParameterType parameterType,
+            double minimum,
+            double maximum)
         {
             specificationType = ParameterSpecificationType.MinMaxParameter;
             samplerType = ParameterSamplerType.RandomUniform;
@@ -68,7 +72,14 @@ namespace Appalachia.Jobs.Optimization.Parameters
 
                 case ParameterSpecificationType.MinMaxParameter:
 
-                    return ParameterFactory.Transform(transformType, samplerType, minimum, maximum, parameterType, random);
+                    return ParameterFactory.Transform(
+                        transformType,
+                        samplerType,
+                        minimum,
+                        maximum,
+                        parameterType,
+                        random
+                    );
 
                 default:
                     throw new ArgumentOutOfRangeException();

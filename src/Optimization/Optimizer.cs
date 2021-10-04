@@ -16,11 +16,16 @@ namespace Appalachia.Jobs.Optimization
 {
     public static class Optimizer
     {
-
         private const string _PRF_PFX = nameof(Optimizer) + ".";
-        private static readonly ProfilerMarker _PRF_ScheduleOptimizationJobs = new ProfilerMarker(_PRF_PFX + nameof(ScheduleOptimizationJobs));
-        private static readonly ProfilerMarker _PRF_ScheduleOptimizationJobs_Parameters = new ProfilerMarker(_PRF_PFX + nameof(ScheduleOptimizationJobs) + ".Parameters");
-        private static readonly ProfilerMarker _PRF_ScheduleOptimizationJobs_JobDelegate = new ProfilerMarker(_PRF_PFX + nameof(ScheduleOptimizationJobs) + ".JobDelegate");
+
+        private static readonly ProfilerMarker _PRF_ScheduleOptimizationJobs =
+            new(_PRF_PFX + nameof(ScheduleOptimizationJobs));
+
+        private static readonly ProfilerMarker _PRF_ScheduleOptimizationJobs_Parameters =
+            new(_PRF_PFX + nameof(ScheduleOptimizationJobs) + ".Parameters");
+
+        private static readonly ProfilerMarker _PRF_ScheduleOptimizationJobs_JobDelegate =
+            new(_PRF_PFX + nameof(ScheduleOptimizationJobs) + ".JobDelegate");
 
         public static JobHandle ScheduleOptimizationJobs(
             NativeArray<ParameterSpecification> paramSpecs,
@@ -29,7 +34,8 @@ namespace Appalachia.Jobs.Optimization
             NativeArray<OptimizationResult> bestResults,
             JobRandoms randoms,
             JobHandle inputHandle,
-            Func<JobHandle, NativeArray3D<double>, NativeArray2D<OptimizationResult>, JobHandle> optimizationJobCreator)
+            Func<JobHandle, NativeArray3D<double>, NativeArray2D<OptimizationResult>, JobHandle>
+                optimizationJobCreator)
         {
             using (_PRF_ScheduleOptimizationJobs.Auto())
             {
@@ -39,7 +45,9 @@ namespace Appalachia.Jobs.Optimization
 
                     inputHandle = new RandomSearch_ParametersWideJob
                     {
-                        parameterSets = parameterSets, parameterSpecifications = paramSpecs, randoms = randoms
+                        parameterSets = parameterSets,
+                        parameterSpecifications = paramSpecs,
+                        randoms = randoms
                     }.Schedule3D(parameterSets, 64, inputHandle);
 
                     using (_PRF_ScheduleOptimizationJobs_JobDelegate.Auto())
@@ -47,7 +55,9 @@ namespace Appalachia.Jobs.Optimization
                         inputHandle = optimizationJobCreator(inputHandle, parameterSets, results);
                     }
 
-                    inputHandle = new ChooseBestResultWideJob {results = results, bestResults = bestResults}.Schedule(instanceCount, 16, inputHandle);
+                    inputHandle =
+                        new ChooseBestResultWideJob {results = results, bestResults = bestResults}
+                           .Schedule(instanceCount, 16, inputHandle);
                 }
 
                 return inputHandle;

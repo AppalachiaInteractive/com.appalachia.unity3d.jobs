@@ -12,12 +12,12 @@ namespace Appalachia.Jobs.TextureJobs.Structures
 
         public static explicit operator int3(RGB24 val)
         {
-            return new int3 {x = val.R, y = val.G, z = val.B};
+            return new() {x = val.R, y = val.G, z = val.B};
         }
 
         public static explicit operator RGB24(int3 val)
         {
-            return new RGB24 {R = (byte) val.x, G = (byte) val.y, B = (byte) val.z};
+            return new() {R = (byte) val.x, G = (byte) val.y, B = (byte) val.z};
         }
 
         public static RGB24 operator +(RGB24 lhs, RGB24 rhs)

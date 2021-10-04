@@ -14,7 +14,7 @@ namespace Appalachia.Jobs.Optimization.Utilities
 
         static GLOBAL_RANDOM()
         {
-            _random = new Random();            
+            _random = new Random();
         }
 
         public static Random random
