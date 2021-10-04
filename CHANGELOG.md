@@ -1,0 +1,18 @@
+```
+ ________   ___  ___   ________   ________    ________   _______    ________      
+|\   ____\ |\  \|\  \ |\   __  \ |\   ___  \ |\   ____\ |\  ___ \  |\   ____\     
+\ \  \___| \ \  \\\  \\ \  \|\  \\ \  \\ \  \\ \  \___| \ \   __/| \ \  \___|_    
+ \ \  \     \ \   __  \\ \   __  \\ \  \\ \  \\ \  \  ___\ \  \_|/__\ \_____  \   
+  \ \  \____ \ \  \ \  \\ \  \ \  \\ \  \\ \  \\ \  \|\  \\ \  \_|\ \\|____|\  \  
+   \ \_______\\ \__\ \__\\ \__\ \__\\ \__\\ \__\\ \_______\\ \_______\ ____\_\  \ 
+    \|_______| \|__|\|__| \|__|\|__| \|__| \|__| \|_______| \|_______||\_________\
+                                                                      \|_________|
+```
+
+## Releasing
+| Hash | Date | Author | Changes |
+|------|------|--------|---------|
+| 7a13170b0a58bb5a917dfd496f397125e9ed0118 | 2021-10-03 | Chris Schubert | Updating namespaces to match folder structure |
+| d911db8923c420a15a959be2f450cec25ce4e677 | 2021-10-03 | Chris Schubert | Organizing Appalachia packages for package management |
+| 38d9919621fb1ebfc8ba7debd2155699b81acd03 | 2021-10-03 | Chris Schubert | Initializing organization repository for project. |
+| fb120afec6215df188eae52f7d72d5c8e2547b18 | 2021-10-03 | Chris Schubert | Added README.md |
