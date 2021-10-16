@@ -3,9 +3,9 @@
   "rootNamespace": "",
   "references": [
     "GUID:38b9fd055f0048940b2527cad6c86ab0",
-    "GUID:fb58d5396d4f85044a40c7548929c37d",
     "GUID:2665a8d13d1b3f18800f46e256720795",
-    "GUID:d8b63aba1907145bea998dd612889d6b"
+    "GUID:d8b63aba1907145bea998dd612889d6b",
+    "GUID:fb58d5396d4f85044a40c7548929c37d"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
@@ -15,5 +15,6 @@
   "autoReferenced": true,
   "defineConstraints": [],
   "versionDefines": [],
-  "noEngineReferences": false
+  "noEngineReferences": false,
+  "optionalUnityReferences": []
 }

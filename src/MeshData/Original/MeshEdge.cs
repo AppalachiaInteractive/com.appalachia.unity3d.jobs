@@ -1,6 +1,6 @@
 /*using System;
 
-namespace Appalachia.Core.MeshData
+namespace Appalachia.Jobs.MeshData
 {
     public struct MeshEdge : IEquatable<MeshEdge>
     {

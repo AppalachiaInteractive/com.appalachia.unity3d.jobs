@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Appalachia.Core.Profiling;
 
-namespace Appalachia.Core.MeshData
+namespace Appalachia.Jobs.MeshData
 {
     [Serializable]
     public class MeshTriangle : IEquatable<MeshTriangle>

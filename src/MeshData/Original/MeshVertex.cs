@@ -2,7 +2,7 @@
 using Appalachia.Core.HashKeys;
 using Unity.Mathematics;
 
-namespace Appalachia.Core.MeshData
+namespace Appalachia.Jobs.MeshData
 {
     public struct MeshVertex : IEquatable<MeshVertex>
     {

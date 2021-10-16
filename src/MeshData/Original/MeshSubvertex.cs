@@ -1,7 +1,7 @@
 /*using System;
 using UnityEngine;
 
-namespace Appalachia.Core.MeshData
+namespace Appalachia.Jobs.MeshData
 {
     [Serializable]
     public class MeshSubvertex : IEquatable<MeshSubvertex>

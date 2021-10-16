@@ -8,7 +8,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-namespace Appalachia.Core.MeshData
+namespace Appalachia.Jobs.MeshData
 {
     
     
