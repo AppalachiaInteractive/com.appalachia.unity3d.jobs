@@ -12,6 +12,13 @@
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 0e3c18848f8ee7bafcdeedbc967739ffc3c2f04a | 2021-10-16 | Chris Schubert | More project cleanup and refactoring |
+| e7946a2f49fa753199f0d9c0fa9afad30027a48b | 2021-10-12 | Chris Schubert | Code cleanup and asmdef regeneration |
+
+
+ ## Tag: `v0.1.2`
+| Hash | Date | Author | Changes |
+|------|------|--------|---------|
 | ccdff539b9dd8882a21ad9e718b6a0057104e0bc | 2021-10-04 | Chris Schubert | Code cleanup and refactoring |
 
 
