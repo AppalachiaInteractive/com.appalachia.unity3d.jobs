@@ -14,13 +14,22 @@
   "author": {
     "name": "Appalachia Interactive"
   },
-  "dependencies": {},
   "repository": {
-    "url": "https://github.com/AppalachiaInteractive/com.appalachia.unity3d.jobs.git",
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/AppalachiaInteractive/com.appalachia.unity3d.jobs.git"
   },
   "publishConfig": {
     "registry": "http://35.211.123.13:4873/"
+  },
+  "dependencies": {
+    "com.unity.mathematics": "1.2.4",
+    "com.unity.jobs": "0.11.0-preview.6",
+    "com.unity.collections": "1.0.0-pre.6",
+    "com.unity.burst": "1.6.0",
+    "com.appalachia.unity3d.utility": "0.1.0",
+    "com.appalachia.unity3d.core": "0.1.3",
+    "com.appalachia.unity3d.awesome-technologies.vegetation-studio": "0.1.14",
+    "com.appalachia.unity3d.ci": "0.1.0"
   },
   "scripts": {
     "preversion": "bash ~/com.appalachia/appa/appa package unity3d preversion",
@@ -33,5 +42,6 @@
     "prepublishOnly": "bash ~/com.appalachia/appa/appa package unity3d prepublishOnly",
     "publish": "bash ~/com.appalachia/appa/appa package unity3d publish",
     "postpublish": "bash ~/com.appalachia/appa/appa package unity3d postpublish"
-  }
+  },
+  "exports": null
 }
