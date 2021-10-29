@@ -14,6 +14,7 @@ using UnityEngine;
 namespace Appalachia.Jobs.MeshData
 {
     [AlwaysInitializeOnLoad]
+    
     public static class MeshObjectManager
     {
         private const string _PRF_PFX = nameof(MeshObjectManager) + ".";

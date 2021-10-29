@@ -9,6 +9,7 @@ using Unity.Jobs;
 
 namespace Appalachia.Jobs.Concurrency
 {
+    
     public static class JobTracker
     {
         private const int _initialJob = 32;
