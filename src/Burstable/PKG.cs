@@ -8,7 +8,7 @@ namespace Appalachia.Jobs.Burstable
 {
     internal static partial class PKG
     {
-        public const int Priority = -479000;
+        public const int Priority = -368000;
         public const string Name = "Jobs/Burstable";
         public const string Prefix = Root + Name + "/";
         public const string Root = "Appalachia/";
