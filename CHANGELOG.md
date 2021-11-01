@@ -20,6 +20,7 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 3c0572d899db024c51eb1b375a53f4c6e972cd9d | 2021-10-31 | Chris Schubert | Updating changelog and releaselog |
 
 
  ## Tag: `v0.2.1`
@@ -27,7 +28,7 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 |------|------|--------|---------|
 
 
- ## Tag: `v0.2.0, origin/main`
+ ## Tag: `v0.2.0`
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
 | 7502a5ae95566e93c08799bed04d07882ecdca34 | 2021-10-31 | Chris Schubert | Updating changelog and releaselog |
