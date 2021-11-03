@@ -8,7 +8,7 @@ namespace Appalachia.Jobs.TextureJobs
 {
     internal static partial class PKG
     {
-        public const int Priority = -368000;
+        public const int Priority = -374000;
         public const string Name = "Jobs/TextureJobs";
         public const string Prefix = Root + Name + "/";
         public const string Root = "Appalachia/";
