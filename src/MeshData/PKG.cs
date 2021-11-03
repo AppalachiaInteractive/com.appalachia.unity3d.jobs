@@ -8,7 +8,7 @@ namespace Appalachia.Jobs.MeshData
 {
     internal static partial class PKG
     {
-        public const int Priority = -376000;
+        public const int Priority = -378000;
         public const string Name = "Jobs/MeshData";
         public const string Prefix = Root + Name + "/";
         public const string Root = "Appalachia/";
