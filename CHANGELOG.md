@@ -14,6 +14,8 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 8b65fb8222158d18b280ad06d76a938541049c35 | 2021-11-03 | Chris Schubert | Committing before testing the package v. repo switch |
+| df7390556756ecff06974dc0707129277b36c832 | 2021-11-02 | Chris Schubert | Updating changelog and releaselog |
 | 332d9428555aa11e8049acfb27766b8434749bc2 | 2021-11-02 | Chris Schubert | Updating changelog and releaselog |
 | 973db24b2b51dbed8909ffd2b4fb8a2cecb91232 | 2021-11-02 | Chris Schubert | Updating changelog and releaselog |
 | 522d1ae7c4bef6322ae72fcebfc5f01b9ecabe42 | 2021-11-02 | Chris Schubert | Updating changelog and releaselog |
