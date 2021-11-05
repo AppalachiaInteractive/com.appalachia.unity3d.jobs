@@ -15,6 +15,7 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 `0.2.0`
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 877abcd0fae4e7346aad410b1b36e8806693dd17 | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
 | 83b43dc9ff46402792135c0c4c11f816b9d6e464 | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
 | 01079634ffdb82631be1ded57cd2270d4c97c55c | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
 | e4a387d8dc7b626f8a0a03e8dbe40f57699db033 | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
