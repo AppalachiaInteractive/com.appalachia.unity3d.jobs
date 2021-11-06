@@ -1,4 +1,6 @@
 ```
+C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
+ Let's go!  
  ______   ______   __       ______   ______   ______   ______    
 /\  == \ /\  ___\ /\ \     /\  ___\ /\  __ \ /\  ___\ /\  ___\   
 \ \  __< \ \  __\ \ \ \____\ \  __\ \ \  __ \\ \___  \\ \  __\   
@@ -13,6 +15,7 @@
 `0.2.0`
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| ac09e88f0e25020e9559f74654582689603dfc9d | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
 | 9452347f32deb987fc443b62702fe4ac11388f8b | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
 | 7f766005e5103bc8fa2b10882af0487e95de72b0 | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
 | d854df85655253bbf68c51ec38bf851e61b49e31 | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
