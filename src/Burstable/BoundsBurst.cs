@@ -220,7 +220,7 @@ namespace Appalachia.Jobs.Burstable
         /// <param name="format"></param>
         public override string ToString()
         {
-            return string.Format("Center: {0}, Extents: {1}", center, extents);
+            return $"Center: {center}, Extents: {extents}";
         }
 
 #region IEquatable

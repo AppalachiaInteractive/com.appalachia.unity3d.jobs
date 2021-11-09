@@ -6,6 +6,7 @@ using System.Linq;
 using Appalachia.Core.Attributes;
 using Appalachia.Core.Collections.Native;
 using Appalachia.Jobs.MeshData.Collections;
+using Appalachia.Utility.Logging;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -124,7 +125,7 @@ namespace Appalachia.Jobs.MeshData
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError($"Failed to get mesh object: {ex}");
+                    AppaLog.Error($"Failed to get mesh object: {ex}");
                     return default;
                 }
             }
@@ -234,7 +235,7 @@ namespace Appalachia.Jobs.MeshData
         {
             using (_PRF_DisposeNativeCollections.Auto())
             {
-                //Debug.Log("Disposing native collections.");
+                //AppaLog.Info("Disposing native collections.");
 
                 if (_completionActions != null)
                 {
