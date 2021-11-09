@@ -14,6 +14,13 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 7592bc9d465c102ac29853235412005caa336c02 | 2021-11-08 | Chris Schubert | Upgrading to new logging library |
+
+
+ ## Tag: `v0.2.0`
+| Hash | Date | Author | Changes |
+|------|------|--------|---------|
+| 3ff4007952636107a40d1678c1ce1967a8bd3573 | 2021-11-06 | Chris Schubert | Updating changelog and releaselog |
 | 5844eabf3e3196e254760e3593ddac74b79b53fe | 2021-11-06 | Chris Schubert | Updating changelog and releaselog |
 | efc8f62af4a73c9fc57855ec2afc86c52cc9fd11 | 2021-11-06 | Chris Schubert | Updating changelog and releaselog |
 | ac09e88f0e25020e9559f74654582689603dfc9d | 2021-11-05 | Chris Schubert | Updating changelog and releaselog |
