@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Diagnostics;
 using Appalachia.Jobs.Types.HashKeys;
 using Unity.Mathematics;
 
@@ -27,27 +28,27 @@ namespace Appalachia.Jobs.MeshData
 
 #region IEquatable<MeshSubvertex>
 
-        public bool Equals(MeshSubvertex other)
+        [DebuggerStepThrough] public bool Equals(MeshSubvertex other)
         {
             return key.Equals(other.key);
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             return obj is MeshSubvertex other && Equals(other);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             return key.GetHashCode();
         }
 
-        public static bool operator ==(MeshSubvertex left, MeshSubvertex right)
+        [DebuggerStepThrough] public static bool operator ==(MeshSubvertex left, MeshSubvertex right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(MeshSubvertex left, MeshSubvertex right)
+        [DebuggerStepThrough] public static bool operator !=(MeshSubvertex left, MeshSubvertex right)
         {
             return !left.Equals(right);
         }

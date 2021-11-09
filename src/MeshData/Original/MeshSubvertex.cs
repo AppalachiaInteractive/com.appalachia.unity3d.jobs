@@ -10,7 +10,7 @@ namespace Appalachia.Jobs.MeshData
 
         public short index;
 
-        public bool Equals(MeshSubvertex other)
+        [DebuggerStepThrough] public bool Equals(MeshSubvertex other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -25,7 +25,7 @@ namespace Appalachia.Jobs.MeshData
             return normal.Equals(other.normal) && index == other.index;
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
             {
@@ -45,7 +45,7 @@ namespace Appalachia.Jobs.MeshData
             return Equals((MeshSubvertex) obj);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             unchecked
             {
@@ -53,12 +53,12 @@ namespace Appalachia.Jobs.MeshData
             }
         }
 
-        public static bool operator ==(MeshSubvertex left, MeshSubvertex right)
+        [DebuggerStepThrough] public static bool operator ==(MeshSubvertex left, MeshSubvertex right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(MeshSubvertex left, MeshSubvertex right)
+        [DebuggerStepThrough] public static bool operator !=(MeshSubvertex left, MeshSubvertex right)
         {
             return !Equals(left, right);
         }

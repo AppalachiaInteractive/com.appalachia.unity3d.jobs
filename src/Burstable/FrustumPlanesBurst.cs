@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Unity.Burst;
 using Unity.Mathematics;
@@ -138,7 +139,7 @@ namespace Appalachia.Jobs.Burstable
 
 #region IEquatable
 
-        public bool Equals(FrustumPlanesBurst other)
+        [DebuggerStepThrough] public bool Equals(FrustumPlanesBurst other)
         {
             return left.Equals(other.left) &&
                    right.Equals(other.right) &&
@@ -148,12 +149,12 @@ namespace Appalachia.Jobs.Burstable
                    far.Equals(other.far);
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             return obj is FrustumPlanesBurst other && Equals(other);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             unchecked
             {
@@ -167,12 +168,12 @@ namespace Appalachia.Jobs.Burstable
             }
         }
 
-        public static bool operator ==(FrustumPlanesBurst left, FrustumPlanesBurst right)
+        [DebuggerStepThrough] public static bool operator ==(FrustumPlanesBurst left, FrustumPlanesBurst right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(FrustumPlanesBurst left, FrustumPlanesBurst right)
+        [DebuggerStepThrough] public static bool operator !=(FrustumPlanesBurst left, FrustumPlanesBurst right)
         {
             return !left.Equals(right);
         }

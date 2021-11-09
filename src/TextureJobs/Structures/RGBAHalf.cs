@@ -1,5 +1,6 @@
 #region
 
+using System.Diagnostics;
 using Unity.Mathematics;
 
 #endregion
@@ -10,7 +11,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
     {
         public half R, G, B, A;
 
-        public static explicit operator half4(RGBAHalf val)
+        [DebuggerStepThrough] public static explicit operator half4(RGBAHalf val)
         {
             return new()
             {
@@ -21,7 +22,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             };
         }
 
-        public static explicit operator RGBAHalf(half4 val)
+        [DebuggerStepThrough] public static explicit operator RGBAHalf(half4 val)
         {
             return new()
             {
@@ -32,7 +33,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             };
         }
 
-        public static RGBAHalf operator +(RGBAHalf lhs, RGBAHalf rhs)
+        [DebuggerStepThrough] public static RGBAHalf operator +(RGBAHalf lhs, RGBAHalf rhs)
         {
             return (RGBAHalf) new half4(
                 (half) (lhs.R + rhs.R),
@@ -42,7 +43,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             );
         }
 
-        public static RGBAHalf operator -(RGBAHalf lhs, RGBAHalf rhs)
+        [DebuggerStepThrough] public static RGBAHalf operator -(RGBAHalf lhs, RGBAHalf rhs)
         {
             return (RGBAHalf) new half4(
                 (half) (lhs.R - rhs.R),

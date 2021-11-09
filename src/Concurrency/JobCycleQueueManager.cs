@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Appalachia.Core.Behaviours;
 using Appalachia.Core.Collections.Native;
 using Appalachia.Core.Math.Stats.Implementations;
@@ -414,7 +415,7 @@ namespace Appalachia.Jobs.Concurrency
             }
         }
 
-        public override string ToString()
+        [DebuggerStepThrough] public override string ToString()
         {
             using (_PRF_ToString.Auto())
             {

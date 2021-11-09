@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Diagnostics;
 using Unity.Mathematics;
 
 #endregion
@@ -57,7 +58,7 @@ namespace Appalachia.Jobs.Types.HashKeys
 
 #region IEquatable<JobFloat3Key>
 
-        public bool Equals(JobFloat3Key other)
+        [DebuggerStepThrough] public bool Equals(JobFloat3Key other)
         {
             return (x == other.x) &&
                    (y == other.y) &&
@@ -65,22 +66,22 @@ namespace Appalachia.Jobs.Types.HashKeys
                    (groupScale == other.groupScale);
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             return obj is JobFloat3Key other && Equals(other);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             return _hashCode;
         }
 
-        public static bool operator ==(JobFloat3Key left, JobFloat3Key right)
+        [DebuggerStepThrough] public static bool operator ==(JobFloat3Key left, JobFloat3Key right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(JobFloat3Key left, JobFloat3Key right)
+        [DebuggerStepThrough] public static bool operator !=(JobFloat3Key left, JobFloat3Key right)
         {
             return !left.Equals(right);
         }

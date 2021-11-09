@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Diagnostics;
 
 #endregion
 
@@ -32,18 +33,18 @@ namespace Appalachia.Jobs.MeshData
 
 #region IEquatable<MeshEdge>
 
-        public bool Equals(MeshEdge other)
+        [DebuggerStepThrough] public bool Equals(MeshEdge other)
         {
             return ((aIndex == other.aIndex) && (bIndex == other.bIndex)) ||
                    ((aIndex == other.bIndex) && (bIndex == other.aIndex));
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             return obj is MeshEdge other && Equals(other);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             unchecked
             {
@@ -54,12 +55,12 @@ namespace Appalachia.Jobs.MeshData
             }
         }
 
-        public static bool operator ==(MeshEdge left, MeshEdge right)
+        [DebuggerStepThrough] public static bool operator ==(MeshEdge left, MeshEdge right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(MeshEdge left, MeshEdge right)
+        [DebuggerStepThrough] public static bool operator !=(MeshEdge left, MeshEdge right)
         {
             return !left.Equals(right);
         }

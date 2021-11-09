@@ -1,5 +1,6 @@
 #region
 
+using System.Diagnostics;
 using Unity.Mathematics;
 
 #endregion
@@ -10,7 +11,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
     {
         public byte R, G, B, A;
 
-        public static explicit operator int4(RGBA32 val)
+        [DebuggerStepThrough] public static explicit operator int4(RGBA32 val)
         {
             return new()
             {
@@ -21,7 +22,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             };
         }
 
-        public static explicit operator RGBA32(int4 val)
+        [DebuggerStepThrough] public static explicit operator RGBA32(int4 val)
         {
             return new()
             {
@@ -32,12 +33,12 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             };
         }
 
-        public static RGBA32 operator +(RGBA32 lhs, RGBA32 rhs)
+        [DebuggerStepThrough] public static RGBA32 operator +(RGBA32 lhs, RGBA32 rhs)
         {
             return (RGBA32) ((int4) lhs + (int4) rhs);
         }
 
-        public static RGBA32 operator -(RGBA32 lhs, RGBA32 rhs)
+        [DebuggerStepThrough] public static RGBA32 operator -(RGBA32 lhs, RGBA32 rhs)
         {
             return (RGBA32) ((int4) lhs - (int4) rhs);
         }

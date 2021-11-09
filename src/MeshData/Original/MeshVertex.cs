@@ -34,27 +34,27 @@ namespace Appalachia.Jobs.MeshData
 
         #region IEquatable<MeshVertex>
 
-        public bool Equals(MeshVertex other)
+        [DebuggerStepThrough] public bool Equals(MeshVertex other)
         {
             return key.Equals(other.key);
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             return obj is MeshVertex other && Equals(other);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             return key.GetHashCode();
         }
 
-        public static bool operator ==(MeshVertex left, MeshVertex right)
+        [DebuggerStepThrough] public static bool operator ==(MeshVertex left, MeshVertex right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(MeshVertex left, MeshVertex right)
+        [DebuggerStepThrough] public static bool operator !=(MeshVertex left, MeshVertex right)
         {
             return !left.Equals(right);
         }

@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Unity.Burst;
 using Unity.Mathematics;
@@ -308,14 +309,14 @@ namespace Appalachia.Jobs.Burstable
         }
 
         [BurstDiscard]
-        public override string ToString()
+        [DebuggerStepThrough] public override string ToString()
         {
             return
                 $"(normal:({normal.x:F1}, {normal.y:F1}, {normal.z:F1}), distance:{distance:F1})";
         }
 
         [BurstDiscard]
-        public string ToString(string format)
+        [DebuggerStepThrough] public string ToString(string format)
         {
             return
                 $"(normal:({normal.x.ToString(format)}, {normal.y.ToString(format)}, {normal.z.ToString(format)}), distance:{distance.ToString(format)})";
@@ -325,17 +326,17 @@ namespace Appalachia.Jobs.Burstable
 
 #region IEquatable
 
-        public bool Equals(PlaneBurst other)
+        [DebuggerStepThrough] public bool Equals(PlaneBurst other)
         {
             return normal.Equals(other.normal) && distance.Equals(other.distance);
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             return obj is PlaneBurst other && Equals(other);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             unchecked
             {
@@ -343,12 +344,12 @@ namespace Appalachia.Jobs.Burstable
             }
         }
 
-        public static bool operator ==(PlaneBurst left, PlaneBurst right)
+        [DebuggerStepThrough] public static bool operator ==(PlaneBurst left, PlaneBurst right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(PlaneBurst left, PlaneBurst right)
+        [DebuggerStepThrough] public static bool operator !=(PlaneBurst left, PlaneBurst right)
         {
             return !left.Equals(right);
         }

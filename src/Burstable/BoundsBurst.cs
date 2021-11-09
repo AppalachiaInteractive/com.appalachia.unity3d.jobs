@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Unity.Burst;
 using Unity.Mathematics;
@@ -203,13 +204,13 @@ namespace Appalachia.Jobs.Burstable
         }
 
         [BurstCompile]
-        public static implicit operator Bounds(BoundsBurst b)
+        [DebuggerStepThrough] public static implicit operator Bounds(BoundsBurst b)
         {
             return new(b.center, b.size);
         }
 
         [BurstCompile]
-        public static implicit operator BoundsBurst(Bounds b)
+        [DebuggerStepThrough] public static implicit operator BoundsBurst(Bounds b)
         {
             return new(b.center, b.size);
         }
@@ -218,14 +219,14 @@ namespace Appalachia.Jobs.Burstable
         ///     <para>Returns a nicely formatted string for the bounds.</para>
         /// </summary>
         /// <param name="format"></param>
-        public override string ToString()
+        [DebuggerStepThrough] public override string ToString()
         {
             return $"Center: {center}, Extents: {extents}";
         }
 
 #region IEquatable
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
             var vector3 = center;
             var hashCode = vector3.GetHashCode();
@@ -234,7 +235,7 @@ namespace Appalachia.Jobs.Burstable
             return hashCode ^ num;
         }
 
-        public override bool Equals(object other)
+        [DebuggerStepThrough] public override bool Equals(object other)
         {
             if (other is BoundsBurst other1)
             {
@@ -249,42 +250,42 @@ namespace Appalachia.Jobs.Burstable
             return false;
         }
 
-        public bool Equals(Bounds other)
+        [DebuggerStepThrough] public bool Equals(Bounds other)
         {
             return center.Equals(other.center) && extents.Equals(other.extents);
         }
 
-        public static bool operator ==(Bounds lhs, BoundsBurst rhs)
+        [DebuggerStepThrough] public static bool operator ==(Bounds lhs, BoundsBurst rhs)
         {
             return lhs.center.Equals(rhs.center) && lhs.extents.Equals(rhs.extents);
         }
 
-        public static bool operator !=(Bounds lhs, BoundsBurst rhs)
+        [DebuggerStepThrough] public static bool operator !=(Bounds lhs, BoundsBurst rhs)
         {
             return !(lhs == rhs);
         }
 
-        public static bool operator ==(BoundsBurst lhs, Bounds rhs)
+        [DebuggerStepThrough] public static bool operator ==(BoundsBurst lhs, Bounds rhs)
         {
             return lhs.center.Equals(rhs.center) && lhs.extents.Equals(rhs.extents);
         }
 
-        public static bool operator !=(BoundsBurst lhs, Bounds rhs)
+        [DebuggerStepThrough] public static bool operator !=(BoundsBurst lhs, Bounds rhs)
         {
             return !(lhs == rhs);
         }
 
-        public bool Equals(BoundsBurst other)
+        [DebuggerStepThrough] public bool Equals(BoundsBurst other)
         {
             return center.Equals(other.center) && extents.Equals(other.extents);
         }
 
-        public static bool operator ==(BoundsBurst lhs, BoundsBurst rhs)
+        [DebuggerStepThrough] public static bool operator ==(BoundsBurst lhs, BoundsBurst rhs)
         {
             return lhs.center.Equals(rhs.center) && lhs.extents.Equals(rhs.extents);
         }
 
-        public static bool operator !=(BoundsBurst lhs, BoundsBurst rhs)
+        [DebuggerStepThrough] public static bool operator !=(BoundsBurst lhs, BoundsBurst rhs)
         {
             return !(lhs == rhs);
         }

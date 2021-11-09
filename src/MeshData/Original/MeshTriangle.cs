@@ -61,7 +61,7 @@ namespace Appalachia.Jobs.MeshData
         
         #region IEquatable<MeshTriangle>
 
-        public bool Equals(MeshTriangle other)
+        [DebuggerStepThrough] public bool Equals(MeshTriangle other)
         {
             if (ReferenceEquals(null, other))
             {
@@ -82,7 +82,7 @@ namespace Appalachia.Jobs.MeshData
                 originalZIndex == other.originalZIndex;
         }
 
-        public override bool Equals(object obj)
+        [DebuggerStepThrough] public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
             {
@@ -102,7 +102,7 @@ namespace Appalachia.Jobs.MeshData
             return Equals((MeshTriangle) obj);
         }
 
-        public override int GetHashCode()
+        [DebuggerStepThrough] public override int GetHashCode()
         {
            
 using (ASPECT.Many(ASPECT.Profile(), ASPECT.Trace()))
@@ -127,12 +127,12 @@ using (ASPECT.Many(ASPECT.Profile(), ASPECT.Trace()))
             }
         }
 
-        public static bool operator ==(MeshTriangle left, MeshTriangle right)
+        [DebuggerStepThrough] public static bool operator ==(MeshTriangle left, MeshTriangle right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(MeshTriangle left, MeshTriangle right)
+        [DebuggerStepThrough] public static bool operator !=(MeshTriangle left, MeshTriangle right)
         {
             return !Equals(left, right);
         }

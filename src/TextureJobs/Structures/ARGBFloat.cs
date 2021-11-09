@@ -1,5 +1,6 @@
 #region
 
+using System.Diagnostics;
 using Unity.Mathematics;
 
 #endregion
@@ -10,7 +11,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
     {
         public float R, G, B, A;
 
-        public static explicit operator float4(ARGBFloat val)
+        [DebuggerStepThrough] public static explicit operator float4(ARGBFloat val)
         {
             return new()
             {
@@ -21,7 +22,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             };
         }
 
-        public static explicit operator ARGBFloat(float4 val)
+        [DebuggerStepThrough] public static explicit operator ARGBFloat(float4 val)
         {
             return new()
             {
@@ -32,7 +33,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             };
         }
 
-        public static ARGBFloat operator +(ARGBFloat lhs, ARGBFloat rhs)
+        [DebuggerStepThrough] public static ARGBFloat operator +(ARGBFloat lhs, ARGBFloat rhs)
         {
             return (ARGBFloat) new float4(
                 lhs.A + rhs.A,
@@ -42,7 +43,7 @@ namespace Appalachia.Jobs.TextureJobs.Structures
             );
         }
 
-        public static ARGBFloat operator -(ARGBFloat lhs, ARGBFloat rhs)
+        [DebuggerStepThrough] public static ARGBFloat operator -(ARGBFloat lhs, ARGBFloat rhs)
         {
             return (ARGBFloat) new float4(
                 lhs.A - rhs.A,
