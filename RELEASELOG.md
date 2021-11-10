@@ -15,6 +15,7 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 `0.2.0`
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 9df5114c77d859550f5d1cbc4e397e5026476a74 | 2021-11-09 | Chris Schubert | Updating changelog and releaselog |
 | bb1ebb9b3032a3066314e62ac4f5ec7b49dab250 | 2021-11-09 | Chris Schubert | Removing empty directories, adding some debugger passthroughs, and reformatting asmdefs |
 | 059734cb1ec9165eb6810b1d16da1756cec2d981 | 2021-11-08 | Chris Schubert | Updating changelog and releaselog |
 | 7592bc9d465c102ac29853235412005caa336c02 | 2021-11-08 | Chris Schubert | Upgrading to new logging library |
