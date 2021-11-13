@@ -14,14 +14,10 @@ C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| e8b56a07a5ed14130e0110c110835a9180f71411 | 2021-11-13 | Chris Schubert | Updating changelog and releaselog |
 | 6eaebbabab6ea233a592462b38bcbbd2849f045b | 2021-11-13 | Chris Schubert | EXR to gitlfs |
 | 60400ca27aeb3adda9a954d3e64826987306f459 | 2021-11-13 | Chris Schubert | Editor exlusions fro runtime build |
 | 835b4008924288eb873bbb17c28e568768edc048 | 2021-11-13 | Chris Schubert | Editor exclusions for runtime build. |
-
-
- ## Tag: `v0.2.0`
-| Hash | Date | Author | Changes |
-|------|------|--------|---------|
 | 37ad4c02d3140a47b4337cf66b718e313995f5ec | 2021-11-09 | Chris Schubert | Updating changelog and releaselog |
 | 9df5114c77d859550f5d1cbc4e397e5026476a74 | 2021-11-09 | Chris Schubert | Updating changelog and releaselog |
 | bb1ebb9b3032a3066314e62ac4f5ec7b49dab250 | 2021-11-09 | Chris Schubert | Removing empty directories, adding some debugger passthroughs, and reformatting asmdefs |
