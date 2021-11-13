@@ -25,7 +25,9 @@ namespace Appalachia.Jobs.MeshData
             set
             {
                 _mesh = value;
+#if UNITY_EDITOR
                 SetDirty();
+#endif
             }
         }
 
@@ -35,7 +37,9 @@ namespace Appalachia.Jobs.MeshData
         {
             data = new MeshObject(mesh, solidify);
 
+#if UNITY_EDITOR
             SetDirty();
+#endif
 
             return data;
         }

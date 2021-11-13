@@ -5,7 +5,6 @@ using System.Linq;
 using Appalachia.Core.Profiling;
 using Appalachia.Core.Terrains;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
 namespace Appalachia.Jobs.MeshData

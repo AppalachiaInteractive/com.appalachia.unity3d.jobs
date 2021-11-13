@@ -1,13 +1,13 @@
 #region
 
 using System;
-using UnityEditor;
+using Appalachia.Core.Attributes;
 
 #endregion
 
 namespace Appalachia.Jobs.Optimization.Utilities
 {
-    [InitializeOnLoad]
+    [AlwaysInitializeOnLoad]
     public static class GLOBAL_RANDOM
     {
         private static Random _random;

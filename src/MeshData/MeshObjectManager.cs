@@ -105,6 +105,7 @@ namespace Appalachia.Jobs.MeshData
                         }
                     }
 
+#if UNITY_EDITOR
                     using (_PRF_GetByMesh_CreateWrapper.Auto())
                     {
                         var uniqueName =
@@ -120,6 +121,9 @@ namespace Appalachia.Jobs.MeshData
                     {
                         collection.AddOrUpdate(hashCode, wrapper);
                     }
+#else
+                    wrapper = null;
+#endif
 
                     return wrapper;
                 }
