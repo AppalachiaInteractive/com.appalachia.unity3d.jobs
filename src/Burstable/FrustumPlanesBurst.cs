@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace Appalachia.Jobs.Burstable
 {
+    [Serializable]
     public struct FrustumPlanesBurst : IEquatable<FrustumPlanesBurst>
     {
         public FrustumPlanesBurst(Plane[] planes)
