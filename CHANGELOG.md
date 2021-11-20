@@ -1,6 +1,6 @@
 ```
 C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
-Let's go!  
+Development environment loaded!  
  ________   ___  ___   ________   ________    ________   _______    ________      
 |\   ____\ |\  \|\  \ |\   __  \ |\   ___  \ |\   ____\ |\  ___ \  |\   ____\     
 \ \  \___| \ \  \\\  \\ \  \|\  \\ \  \\ \  \\ \  \___| \ \   __/| \ \  \___|_    
@@ -14,6 +14,8 @@ Let's go!
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 1f3f2d8f5e157d0625dbd327052eeacfba8654d1 | 2021-11-20 | Chris Schubert | Packaging updates and formatting for titles |
+| 81ae5bb0fd8d458be265af69f28f1271c015d2c1 | 2021-11-20 | Chris Schubert | Updating changelog and releaselog |
 | 1824296b62bfda7054d61b2d3f06735bcb1f7e93 | 2021-11-20 | Chris Schubert | Code cleanup and base class refactoring |
 | 26588956f07e3e510c6400a2bd2c45c18d8ac271 | 2021-11-14 | Chris Schubert | Updating changelog and releaselog |
 | 01c233167abed212b868e0b6f28b9cb267c84b2a | 2021-11-13 | Chris Schubert | Updating changelog and releaselog |
