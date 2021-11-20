@@ -14,7 +14,7 @@ using Unity.Profiling;
 
 namespace Appalachia.Jobs.Concurrency
 {
-    public class JobCycleQueueManager : AppalachiaBase<JobCycleQueueManager>, IDisposable
+    public class JobCycleQueueManager : AppalachiaBase, IDisposable
     {
         private const string _PRF_PFX = nameof(JobCycleQueueManager) + ".";
 

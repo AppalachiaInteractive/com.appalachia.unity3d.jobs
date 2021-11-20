@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Appalachia.Core.Attributes;
 using Appalachia.Core.Collections.Native;
+using Appalachia.Core.Scriptables;
 using Appalachia.Jobs.MeshData.Collections;
 using Appalachia.Utility.Logging;
 using Unity.Profiling;
@@ -110,7 +111,7 @@ namespace Appalachia.Jobs.MeshData
                     {
                         var uniqueName =
                             $"{mesh.name}_{mesh.vertexCount}v_{mesh.triangles.Length}t";
-                        wrapper = MeshObjectWrapper.LoadOrCreateNew(uniqueName);
+                        wrapper = AppalachiaObject.LoadOrCreateNew<MeshObjectWrapper>(uniqueName);
 
                         wrapper.data = new MeshObject(mesh, solidified);
                         wrapper.mesh = mesh;

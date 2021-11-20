@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Appalachia.Jobs.MeshData
 {
     [Serializable]
-    public class MeshObjectWrapper : AppalachiaObject<MeshObjectWrapper>
+    public class MeshObjectWrapper : AppalachiaObject
     {
         [SerializeField] private Mesh _mesh;
         [NonSerialized] public MeshObject data;
