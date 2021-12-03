@@ -13,6 +13,7 @@
 `0.2.0`
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 2e63988fa8b98442138d431edfba77e75164450b | 2021-12-02 | Chris Schubert | Updating changelog and releaselog |
 | 404c09f89ebe10d15604500a1c0ec006a7b77863 | 2021-12-02 | Chris Schubert | Uncommenting and updating the Unity Jobs for texture processing |
 | fc3daf4caa3993cae6a4b11ff0483aed6896bf6c | 2021-11-21 | Chris Schubert | Updating changelog and releaselog |
 | 3295e13702addedee02a4783e0621d79347b81db | 2021-11-20 | Chris Schubert | Updating changelog and releaselog |
