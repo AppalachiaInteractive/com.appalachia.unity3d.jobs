@@ -7,6 +7,7 @@ using Appalachia.Core.Attributes;
 using Appalachia.Core.Collections.Native;
 using Appalachia.Core.Scriptables;
 using Appalachia.Jobs.MeshData.Collections;
+using Appalachia.Utility.Extensions;
 using Appalachia.Utility.Logging;
 using Unity.Profiling;
 using UnityEngine;
@@ -115,7 +116,7 @@ namespace Appalachia.Jobs.MeshData
 
                         wrapper.data = new MeshObject(mesh, solidified);
                         wrapper.mesh = mesh;
-                        wrapper.SetDirty();
+                        wrapper.MarkAsModified();
                     }
 
                     using (_PRF_GetByMesh_UpdateCollection.Auto())

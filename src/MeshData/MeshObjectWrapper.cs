@@ -2,6 +2,7 @@
 
 using System;
 using Appalachia.Core.Scriptables;
+using Appalachia.Utility.Extensions;
 using UnityEngine;
 
 #endregion
@@ -26,7 +27,7 @@ namespace Appalachia.Jobs.MeshData
             {
                 _mesh = value;
 #if UNITY_EDITOR
-                SetDirty();
+               this.MarkAsModified();
 #endif
             }
         }
@@ -38,7 +39,7 @@ namespace Appalachia.Jobs.MeshData
             data = new MeshObject(mesh, solidify);
 
 #if UNITY_EDITOR
-            SetDirty();
+           this.MarkAsModified();
 #endif
 
             return data;
