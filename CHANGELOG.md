@@ -1,6 +1,4 @@
 ```
-C:/Users/Chris/com.appalachia/unity3d/appa/Assets/Appalachia.Jobs
-Development environment loaded!  
  ________   ___  ___   ________   ________    ________   _______    ________      
 |\   ____\ |\  \|\  \ |\   __  \ |\   ___  \ |\   ____\ |\  ___ \  |\   ____\     
 \ \  \___| \ \  \\\  \\ \  \|\  \\ \  \\ \  \\ \  \___| \ \   __/| \ \  \___|_    
@@ -14,6 +12,8 @@ Development environment loaded!
 ## Releasing
 | Hash | Date | Author | Changes |
 |------|------|--------|---------|
+| 404c09f89ebe10d15604500a1c0ec006a7b77863 | 2021-12-02 | Chris Schubert | Uncommenting and updating the Unity Jobs for texture processing |
+| fc3daf4caa3993cae6a4b11ff0483aed6896bf6c | 2021-11-21 | Chris Schubert | Updating changelog and releaselog |
 | 3295e13702addedee02a4783e0621d79347b81db | 2021-11-20 | Chris Schubert | Updating changelog and releaselog |
 | c6ba7ba901013f04a1b80328a5e67e19b3238bd3 | 2021-11-20 | Chris Schubert | Updating changelog and releaselog |
 | 7ac7cee1138b262ad58ecc47891858efebaa5ca0 | 2021-11-20 | Chris Schubert | Updating changelog and releaselog |
