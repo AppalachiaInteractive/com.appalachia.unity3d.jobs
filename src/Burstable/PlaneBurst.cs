@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Appalachia.Utility.Strings;
 using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
@@ -305,21 +306,37 @@ namespace Appalachia.Jobs.Burstable
         [BurstDiscard]
         public string ToShortString()
         {
-            return $"(n:({normal.x:F1}, {normal.y:F1}, {normal.z:F1}), d:{distance:F1})";
+            return ZString.Format(
+                "(n:({0:F1}, {1:F1}, {2:F1}), d:{3:F1})",
+                normal.x,
+                normal.y,
+                normal.z,
+                distance
+            );
         }
 
         [BurstDiscard]
         [DebuggerStepThrough] public override string ToString()
         {
-            return
-                $"(normal:({normal.x:F1}, {normal.y:F1}, {normal.z:F1}), distance:{distance:F1})";
+            return ZString.Format(
+                "(normal:({0:F1}, {1:F1}, {2:F1}), distance:{3:F1})",
+                normal.x,
+                normal.y,
+                normal.z,
+                distance
+            );
         }
 
         [BurstDiscard]
         [DebuggerStepThrough] public string ToString(string format)
         {
-            return
-                $"(normal:({normal.x.ToString(format)}, {normal.y.ToString(format)}, {normal.z.ToString(format)}), distance:{distance.ToString(format)})";
+            return ZString.Format(
+                "(normal:({0}, {1}, {2}), distance:{3})",
+                normal.x.ToString(format),
+                normal.y.ToString(format),
+                normal.z.ToString(format),
+                distance.ToString(format)
+            );
         }
 
 #endregion

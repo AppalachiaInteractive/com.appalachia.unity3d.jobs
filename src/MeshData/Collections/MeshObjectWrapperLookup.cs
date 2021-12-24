@@ -18,12 +18,11 @@ namespace Appalachia.Jobs.MeshData.Collections
         HideRemoveButton = true,
         NumberOfItemsPerPage = 5
     )]
-    public class MeshObjectWrapperLookup : AppaLookup<int, MeshObjectWrapper, AppaList_int,
-        AppaList_MeshObjectWrapper>
+    public class MeshObjectWrapperLookup : AppaLookup<int, MeshObjectWrapper, intList, MeshObjectWrapperList>
     {
-        protected override string GetDisplayTitle(int key, MeshObjectWrapper value)
+        protected override Color GetDisplayColor(int key, MeshObjectWrapper value)
         {
-            return value.mesh.name;
+            return Color.white;
         }
 
         protected override string GetDisplaySubtitle(int key, MeshObjectWrapper value)
@@ -31,9 +30,9 @@ namespace Appalachia.Jobs.MeshData.Collections
             return string.Empty;
         }
 
-        protected override Color GetDisplayColor(int key, MeshObjectWrapper value)
+        protected override string GetDisplayTitle(int key, MeshObjectWrapper value)
         {
-            return Color.white;
+            return value.mesh.name;
         }
     }
 }

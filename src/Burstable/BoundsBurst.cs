@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using Appalachia.Utility.Strings;
 using Unity.Burst;
 using Unity.Mathematics;
 using UnityEngine;
@@ -221,7 +222,7 @@ namespace Appalachia.Jobs.Burstable
         /// <param name="format"></param>
         [DebuggerStepThrough] public override string ToString()
         {
-            return $"Center: {center}, Extents: {extents}";
+            return ZString.Format("Center: {0}, Extents: {1}", center, extents);
         }
 
 #region IEquatable

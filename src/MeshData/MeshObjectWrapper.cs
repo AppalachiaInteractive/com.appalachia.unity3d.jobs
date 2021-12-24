@@ -1,8 +1,9 @@
 #region
 
 using System;
-using Appalachia.Core.Scriptables;
-using Appalachia.Utility.Extensions;
+using Appalachia.Core.Objects.Initialization;
+using Appalachia.Core.Objects.Root;
+using Appalachia.Utility.Async;
 using UnityEngine;
 
 #endregion
@@ -10,15 +11,16 @@ using UnityEngine;
 namespace Appalachia.Jobs.MeshData
 {
     [Serializable]
-    public class MeshObjectWrapper : AppalachiaObject
+    public class MeshObjectWrapper : AppalachiaObject<MeshObjectWrapper>
     {
+        #region Fields and Autoproperties
+
         [SerializeField] private Mesh _mesh;
         [NonSerialized] public MeshObject data;
 
-        public MeshObjectWrapper()
-        {
-            MeshObjectManager.RegisterDisposalDependency(() => data.SafeDispose());
-        }
+        #endregion
+
+        public bool isCreated => data.isCreated;
 
         public Mesh mesh
         {
@@ -27,22 +29,34 @@ namespace Appalachia.Jobs.MeshData
             {
                 _mesh = value;
 #if UNITY_EDITOR
-               this.MarkAsModified();
+                MarkAsModified();
 #endif
             }
         }
-
-        public bool isCreated => data.isCreated;
 
         public MeshObject CreateAndGetData(bool solidify)
         {
             data = new MeshObject(mesh, solidify);
 
 #if UNITY_EDITOR
-           this.MarkAsModified();
+            MarkAsModified();
 #endif
 
             return data;
         }
+
+        protected override async AppaTask Initialize(Initializer initializer)
+        {
+            using (_PRF_Initialize.Auto())
+            {
+                MeshObjectManager.instance.RegisterDisposalDependency(() => data.SafeDispose());
+            }
+        }
+
+        #region Profiling
+
+        private const string _PRF_PFX = nameof(MeshObjectWrapper) + ".";
+
+        #endregion
     }
 }

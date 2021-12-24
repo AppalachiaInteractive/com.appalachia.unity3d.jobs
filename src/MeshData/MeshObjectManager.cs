@@ -3,12 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Appalachia.Core.Attributes;
+using Appalachia.Core.Collections.Interfaces;
 using Appalachia.Core.Collections.Native;
-using Appalachia.Core.Scriptables;
+using Appalachia.Core.Objects.Initialization;
+using Appalachia.Core.Objects.Root;
 using Appalachia.Jobs.MeshData.Collections;
+using Appalachia.Utility.Async;
 using Appalachia.Utility.Extensions;
-using Appalachia.Utility.Logging;
+using Appalachia.Utility.Strings;
 using Unity.Profiling;
 using UnityEngine;
 
@@ -16,57 +18,27 @@ using UnityEngine;
 
 namespace Appalachia.Jobs.MeshData
 {
-    [AlwaysInitializeOnLoad]
-    
-    public static class MeshObjectManager
+    public class MeshObjectManager : SingletonAppalachiaBehaviour<MeshObjectManager>
     {
-        private const string _PRF_PFX = nameof(MeshObjectManager) + ".";
-
-        private static readonly ProfilerMarker _PRF_GetByMesh = new(_PRF_PFX + nameof(GetByMesh));
-
-        //public static int groupingScale = 10000;
-
-        private static MeshObjectWrapperLookup _meshes;
-        private static MeshObjectWrapperLookup _soldifiedMeshes;
-
-        private static List<Action> _completionActions;
-
-        private static Dictionary<int, Mesh> _previousLookups = new();
-
-        private static readonly ProfilerMarker _PRF_GetByMesh_CheckCollection =
-            new(_PRF_PFX + nameof(GetByMesh) + ".CheckCollection");
-
-        private static readonly ProfilerMarker _PRF_GetByMesh_CreateWrapper =
-            new(_PRF_PFX + nameof(GetByMesh) + ".CreateWrapper");
-
-        private static readonly ProfilerMarker _PRF_GetByMesh_Initialize =
-            new(_PRF_PFX + nameof(GetByMesh) + ".Initialize");
-
-        private static readonly ProfilerMarker _PRF_GetByMesh_UpdateCollection =
-            new(_PRF_PFX + nameof(GetByMesh) + ".UpdateCollection");
-
-        private static readonly ProfilerMarker _PRF_GetCheapestMesh =
-            new(_PRF_PFX + nameof(GetCheapestMesh));
-
-        private static readonly ProfilerMarker _PRF_GetCheapestMeshWrapper =
-            new(_PRF_PFX + nameof(GetCheapestMeshWrapper));
-
-        private static readonly ProfilerMarker _PRF_DisposeNativeCollections =
-            new(_PRF_PFX + nameof(DisposeNativeCollections));
-
+        // [CallStaticConstructorInEditor] should be added to the class (initsingletonattribute)
         static MeshObjectManager()
         {
+            RegisterDependency<MeshObjectManagerMeshCollection>(i => _meshObjectManagerMeshCollection = i);
         }
 
-        [ExecuteOnEnable]
-        private static void Initialize()
-        {
-            _meshes = new MeshObjectWrapperLookup();
-            _soldifiedMeshes = new MeshObjectWrapperLookup();
-        }
+        private static MeshObjectManagerMeshCollection _meshObjectManagerMeshCollection;
+
+        #region Fields and Autoproperties
+
+        private Dictionary<int, Mesh> _previousLookups = new();
+        private List<Action> _completionActions;
+
+        private MeshObjectManagerMeshCollection _meshCollection;
+
+        #endregion
 
         //public static MeshObject GetByMesh(Mesh mesh)
-        public static MeshObjectWrapper GetByMesh(Mesh mesh, bool solidified)
+        public MeshObjectWrapper GetByMesh(Mesh mesh, bool solidified)
         {
             using (_PRF_GetByMesh.Auto())
             {
@@ -76,25 +48,18 @@ namespace Appalachia.Jobs.MeshData
 
                     using (_PRF_GetByMesh_Initialize.Auto())
                     {
-                        if (_meshes == null)
-                        {
-                            _meshes = new MeshObjectWrapperLookup();
-                        }
-
-                        if (_soldifiedMeshes == null)
-                        {
-                            _soldifiedMeshes = new MeshObjectWrapperLookup();
-                        }
+                        Initialize();
 
                         hashCode = mesh.GetHashCode();
                     }
 
                     MeshObjectWrapper wrapper;
-                    MeshObjectWrapperLookup collection;
+                    IAppaLookupSafeUpdates<int, MeshObjectWrapper, MeshObjectWrapperList> collection;
 
                     using (_PRF_GetByMesh_CheckCollection.Auto())
                     {
-                        collection = solidified ? _soldifiedMeshes : _meshes;
+                        collection = (solidified ? _meshCollection.SoldifiedMeshes : _meshCollection.Meshes)
+                           .Items;
 
                         if (collection.ContainsKey(hashCode))
                         {
@@ -110,13 +75,17 @@ namespace Appalachia.Jobs.MeshData
 #if UNITY_EDITOR
                     using (_PRF_GetByMesh_CreateWrapper.Auto())
                     {
-                        var uniqueName =
-                            $"{mesh.name}_{mesh.vertexCount}v_{mesh.triangles.Length}t";
-                        wrapper = AppalachiaObject.LoadOrCreateNew<MeshObjectWrapper>(uniqueName);
+                        var uniqueName = ZString.Format(
+                            "{0}_{1}v_{2}t",
+                            mesh.name,
+                            mesh.vertexCount,
+                            mesh.triangles.Length
+                        );
+                        wrapper = MeshObjectWrapper.LoadOrCreateNew(uniqueName);
 
                         wrapper.data = new MeshObject(mesh, solidified);
                         wrapper.mesh = mesh;
-                        wrapper.MarkAsModified();
+                        Modifications.MarkAsModified(wrapper);
                     }
 
                     using (_PRF_GetByMesh_UpdateCollection.Auto())
@@ -131,13 +100,13 @@ namespace Appalachia.Jobs.MeshData
                 }
                 catch (Exception ex)
                 {
-                    AppaLog.Error($"Failed to get mesh object: {ex}");
+                    Context.Log.Error(ZString.Format("Failed to get mesh object: {0}", ex));
                     return default;
                 }
             }
         }
 
-        public static Mesh GetCheapestMesh(GameObject obj)
+        public Mesh GetCheapestMesh(GameObject obj)
         {
             using (_PRF_GetCheapestMesh.Auto())
             {
@@ -166,7 +135,7 @@ namespace Appalachia.Jobs.MeshData
 
                     if (filters.Length == 0)
                     {
-                        throw new NotSupportedException($"Missing mesh for {obj.name}");
+                        throw new NotSupportedException(ZString.Format("Missing mesh for {0}", obj.name));
                     }
 
                     var sortedFilters = filters.OrderBy(mf => mf.sharedMesh.vertexCount).ToArray();
@@ -204,7 +173,7 @@ namespace Appalachia.Jobs.MeshData
 
                     if (meshFilter == null)
                     {
-                        throw new NotSupportedException($"Missing mesh for {obj.name}");
+                        throw new NotSupportedException(ZString.Format("Missing mesh for {0}", obj.name));
                     }
                 }
 
@@ -216,7 +185,7 @@ namespace Appalachia.Jobs.MeshData
             }
         }
 
-        public static MeshObjectWrapper GetCheapestMeshWrapper(GameObject obj, bool solidified)
+        public MeshObjectWrapper GetCheapestMeshWrapper(GameObject obj, bool solidified)
         {
             using (_PRF_GetCheapestMeshWrapper.Auto())
             {
@@ -226,22 +195,49 @@ namespace Appalachia.Jobs.MeshData
             }
         }
 
-        public static void RegisterDisposalDependency(Action a)
+        public void RegisterDisposalDependency(Action a)
         {
-            if (_completionActions == null)
+            using (_PRF_RegisterDisposalDependency.Auto())
             {
-                _completionActions = new List<Action>();
-            }
+                _completionActions ??= new List<Action>();
 
-            _completionActions.Add(a);
+                _completionActions.Add(a);
+            }
         }
 
-        [ExecuteOnDisable]
-        private static void DisposeNativeCollections()
+        protected override async AppaTask Initialize(Initializer initializer)
+        {
+            using (_PRF_Initialize.Auto())
+            {
+                await base.Initialize(initializer);
+
+                _meshCollection =  .instance;
+            }
+        }
+
+        protected override void Initialize()
+        {
+            using (_PRF_Initialize.Auto())
+            {
+            }
+        }
+
+        protected override async AppaTask WhenDisabled()
+        {
+            await base.WhenDisabled();
+            DisposeNativeCollections();
+        }
+
+        private void DisposeNativeCollections()
         {
             using (_PRF_DisposeNativeCollections.Auto())
             {
-                //AppaLog.Info("Disposing native collections.");
+                if (_meshCollection == null)
+                {
+                    return;
+                }
+
+                //Context.Log.Info("Disposing native collections.");
 
                 if (_completionActions != null)
                 {
@@ -251,18 +247,45 @@ namespace Appalachia.Jobs.MeshData
                     }
                 }
 
-                for (var i = 0; i < _meshes.Count; i++)
-                {
-                    var mesh = _meshes.GetByIndex(i);
-                    mesh.data.Dispose();
-                }
-
-                for (var i = 0; i < _soldifiedMeshes.Count; i++)
-                {
-                    var mesh = _soldifiedMeshes.GetByIndex(i);
-                    mesh.data.Dispose();
-                }
+                _meshCollection.Dispose();
             }
         }
+
+        #region Profiling
+
+        private const string _PRF_PFX = nameof(MeshObjectManager) + ".";
+
+        private static readonly ProfilerMarker _PRF_GetByMesh = new(_PRF_PFX + nameof(GetByMesh));
+
+        private static readonly ProfilerMarker _PRF_RegisterDisposalDependency =
+            new ProfilerMarker(_PRF_PFX + nameof(RegisterDisposalDependency));
+
+        private static readonly ProfilerMarker _PRF_OnDisable =
+            new ProfilerMarker(_PRF_PFX + nameof(OnDisable));
+
+        private static readonly ProfilerMarker _PRF_Initialize =
+            new ProfilerMarker(_PRF_PFX + nameof(Initialize));
+
+        private static readonly ProfilerMarker _PRF_GetByMesh_CheckCollection =
+            new(_PRF_PFX + nameof(GetByMesh) + ".CheckCollection");
+
+        private static readonly ProfilerMarker _PRF_GetByMesh_CreateWrapper =
+            new(_PRF_PFX + nameof(GetByMesh) + ".CreateWrapper");
+
+        private static readonly ProfilerMarker _PRF_GetByMesh_Initialize =
+            new(_PRF_PFX + nameof(GetByMesh) + ".Initialize");
+
+        private static readonly ProfilerMarker _PRF_GetByMesh_UpdateCollection =
+            new(_PRF_PFX + nameof(GetByMesh) + ".UpdateCollection");
+
+        private static readonly ProfilerMarker _PRF_GetCheapestMesh = new(_PRF_PFX + nameof(GetCheapestMesh));
+
+        private static readonly ProfilerMarker _PRF_GetCheapestMeshWrapper =
+            new(_PRF_PFX + nameof(GetCheapestMeshWrapper));
+
+        private static readonly ProfilerMarker _PRF_DisposeNativeCollections =
+            new(_PRF_PFX + nameof(DisposeNativeCollections));
+
+        #endregion
     }
 }

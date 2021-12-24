@@ -1,6 +1,7 @@
 #region
 
 using System;
+using Appalachia.Utility.Strings;
 using Unity.Burst;
 using Unity.Mathematics;
 
@@ -72,7 +73,7 @@ namespace Appalachia.Jobs.Optimization.Parameters
             {
                 throw new ArgumentException(
                     "logarithmic scale requires min: " +
-                    $"{min} and max: {max} to be larger than zero"
+                    ZString.Format("{0} and max: {1} to be larger than zero", min, max)
                 );
             }
 
@@ -99,7 +100,7 @@ namespace Appalachia.Jobs.Optimization.Parameters
             {
                 throw new ArgumentException(
                     "ExponentialAverage scale requires min: " +
-                    $" {min} and max: {max} to be smaller than one"
+                    ZString.Format(" {0} and max: {1} to be smaller than one", min, max)
                 );
             }
 
@@ -138,7 +139,9 @@ namespace Appalachia.Jobs.Optimization.Parameters
         {
             if (min >= max)
             {
-                throw new ArgumentException($"min: {min} is larger than or equal to max: {max}");
+                throw new ArgumentException(
+                    ZString.Format("min: {0} is larger than or equal to max: {1}", min, max)
+                );
             }
 
             switch (parameterType)

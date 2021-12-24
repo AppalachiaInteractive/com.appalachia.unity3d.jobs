@@ -524,7 +524,7 @@ using (ASPECT.Many(ASPECT.Profile(), ASPECT.Trace()))
                 if ((i + 3) >= pairs.Length)
                 {
                     // Why does this happen?
-                    AppaLog.Info("Huh?");
+                    Context.Log.Info("Huh?");
                     break;
                 }
 

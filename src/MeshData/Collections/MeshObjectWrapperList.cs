@@ -8,24 +8,24 @@ using Appalachia.Core.Collections;
 namespace Appalachia.Jobs.MeshData.Collections
 {
     [Serializable]
-    public sealed class AppaList_MeshObjectWrapper : AppaList<MeshObjectWrapper>
+    public sealed class MeshObjectWrapperList : AppaList<MeshObjectWrapper>
     {
-        public AppaList_MeshObjectWrapper()
+        public MeshObjectWrapperList()
         {
         }
 
-        public AppaList_MeshObjectWrapper(
+        public MeshObjectWrapperList(
             int capacity,
             float capacityIncreaseMultiplier = 2,
             bool noTracking = false) : base(capacity, capacityIncreaseMultiplier, noTracking)
         {
         }
 
-        public AppaList_MeshObjectWrapper(AppaList<MeshObjectWrapper> list) : base(list)
+        public MeshObjectWrapperList(AppaList<MeshObjectWrapper> list) : base(list)
         {
         }
 
-        public AppaList_MeshObjectWrapper(MeshObjectWrapper[] values) : base(values)
+        public MeshObjectWrapperList(MeshObjectWrapper[] values) : base(values)
         {
         }
     }

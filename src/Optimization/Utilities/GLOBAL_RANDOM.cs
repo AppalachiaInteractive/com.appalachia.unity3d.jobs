@@ -7,7 +7,7 @@ using Appalachia.Core.Attributes;
 
 namespace Appalachia.Jobs.Optimization.Utilities
 {
-    [AlwaysInitializeOnLoad]
+    [CallStaticConstructorInEditor]
     public static class GLOBAL_RANDOM
     {
         private static Random _random;
