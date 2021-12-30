@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Appalachia.Core.Attributes;
 using Appalachia.Core.Collections.Interfaces;
 using Appalachia.Core.Collections.Native;
 using Appalachia.Core.Objects.Initialization;
@@ -18,22 +19,24 @@ using UnityEngine;
 
 namespace Appalachia.Jobs.MeshData
 {
+    [CallStaticConstructorInEditor]
     public class MeshObjectManager : SingletonAppalachiaBehaviour<MeshObjectManager>
     {
-        // [CallStaticConstructorInEditor] should be added to the class (initsingletonattribute)
         static MeshObjectManager()
         {
             RegisterDependency<MeshObjectManagerMeshCollection>(i => _meshObjectManagerMeshCollection = i);
         }
 
+        #region Static Fields and Autoproperties
+
         private static MeshObjectManagerMeshCollection _meshObjectManagerMeshCollection;
+
+        #endregion
 
         #region Fields and Autoproperties
 
         private Dictionary<int, Mesh> _previousLookups = new();
         private List<Action> _completionActions;
-
-        private MeshObjectManagerMeshCollection _meshCollection;
 
         #endregion
 
@@ -44,22 +47,17 @@ namespace Appalachia.Jobs.MeshData
             {
                 try
                 {
-                    int hashCode;
-
-                    using (_PRF_GetByMesh_Initialize.Auto())
-                    {
-                        Initialize();
-
-                        hashCode = mesh.GetHashCode();
-                    }
+                    var hashCode = mesh.GetHashCode();
 
                     MeshObjectWrapper wrapper;
                     IAppaLookupSafeUpdates<int, MeshObjectWrapper, MeshObjectWrapperList> collection;
 
                     using (_PRF_GetByMesh_CheckCollection.Auto())
                     {
-                        collection = (solidified ? _meshCollection.SoldifiedMeshes : _meshCollection.Meshes)
-                           .Items;
+                        collection =
+                            (solidified
+                                ? _meshObjectManagerMeshCollection.SoldifiedMeshes
+                                : _meshObjectManagerMeshCollection.Meshes).Items;
 
                         if (collection.ContainsKey(hashCode))
                         {
@@ -210,15 +208,6 @@ namespace Appalachia.Jobs.MeshData
             using (_PRF_Initialize.Auto())
             {
                 await base.Initialize(initializer);
-
-                _meshCollection =  .instance;
-            }
-        }
-
-        protected override void Initialize()
-        {
-            using (_PRF_Initialize.Auto())
-            {
             }
         }
 
@@ -232,7 +221,7 @@ namespace Appalachia.Jobs.MeshData
         {
             using (_PRF_DisposeNativeCollections.Auto())
             {
-                if (_meshCollection == null)
+                if (_meshObjectManagerMeshCollection == null)
                 {
                     return;
                 }
@@ -247,7 +236,7 @@ namespace Appalachia.Jobs.MeshData
                     }
                 }
 
-                _meshCollection.Dispose();
+                _meshObjectManagerMeshCollection.Dispose();
             }
         }
 

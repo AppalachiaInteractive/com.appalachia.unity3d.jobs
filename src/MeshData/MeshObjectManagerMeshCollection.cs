@@ -76,6 +76,9 @@ namespace Appalachia.Jobs.MeshData
 
         private const string _PRF_PFX = nameof(MeshObjectManagerMeshCollection) + ".";
 
+        private static readonly ProfilerMarker _PRF_Initialize =
+            new ProfilerMarker(_PRF_PFX + nameof(Initialize));
+
         private static readonly ProfilerMarker _PRF_Dispose = new ProfilerMarker(_PRF_PFX + nameof(Dispose));
 
         #endregion
