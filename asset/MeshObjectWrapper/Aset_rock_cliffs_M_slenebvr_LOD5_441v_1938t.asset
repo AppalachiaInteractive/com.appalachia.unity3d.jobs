@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8174b2bca683431aa7f73d9dc47b4972, type: 3}
   m_Name: Aset_rock_cliffs_M_slenebvr_LOD5_441v_1938t
   m_EditorClassIdentifier: 
-  _niceName: 
   _cachedName: 
+  _niceName: 
+  _initializer:
+    _tags: []
+    _resetToken: 
   _mesh: {fileID: -9067495111132739321, guid: 0e901be6c3a1809438072f6846883134, type: 3}

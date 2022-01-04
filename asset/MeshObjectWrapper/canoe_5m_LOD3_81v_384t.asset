@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8174b2bca683431aa7f73d9dc47b4972, type: 3}
   m_Name: canoe_5m_LOD3_81v_384t
   m_EditorClassIdentifier: 
-  _niceName: 
   _cachedName: 
+  _niceName: 
+  _initializer:
+    _tags: []
+    _resetToken: 
   _mesh: {fileID: -228217903352207117, guid: 9b8575f7f1ae18c4aba451b5f90dbdb3, type: 3}
