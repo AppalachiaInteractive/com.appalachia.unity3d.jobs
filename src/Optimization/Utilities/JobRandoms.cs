@@ -2,6 +2,7 @@
 
 using System;
 using Appalachia.Core.Collections.Native;
+using Appalachia.Core.Execution;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -23,6 +24,8 @@ namespace Appalachia.Jobs.Optimization.Utilities
 
             random = new Random((uint) GLOBAL_RANDOM.random.Next(0, int.MaxValue));
 
+            CleanupManager.Store(this);
+            
             var job = new PopulateJob {random = random, randoms = randoms};
 
             job.Execute();

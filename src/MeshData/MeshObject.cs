@@ -2,8 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using Appalachia.Core.Collections.Native;
-using Appalachia.Core.Extensions;
 using Appalachia.Jobs.Burstable;
 using Appalachia.Jobs.Types.HashKeys;
 using Appalachia.Utility.Constants;
@@ -1280,7 +1278,7 @@ namespace Appalachia.Jobs.MeshData
         {
             isCreated = false;
 
-            SafeNative.SafeDispose(
+            IDisposableExtensions.SafeDispose(
                 ref vertices,
                 ref vertexPoints,
                 ref vertexPositions,

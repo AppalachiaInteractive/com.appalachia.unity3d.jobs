@@ -46,38 +46,39 @@ namespace Appalachia.Jobs.MeshData
 
         protected override async AppaTask Initialize(Initializer initializer)
         {
-            using (_PRF_Initialize.Auto())
-            {
-                await base.Initialize(initializer);
+            await base.Initialize(initializer);
 
 #if UNITY_EDITOR
-                await initializer.Do(
-                    this,
-                    MESHES,
-                    _meshes == null,
-                    () => { _meshes = MeshObjectWrapperLookupCollection.LoadOrCreateNew(MESHES); }
-                );
+            initializer.Do(
+                this,
+                MESHES,
+                _meshes == null,
+                () =>
+                {
+                    using (_PRF_Initialize.Auto())
+                    {
+                        _meshes = MeshObjectWrapperLookupCollection.LoadOrCreateNew(MESHES);
+                    }
+                }
+            );
 
-                await initializer.Do(
-                    this,
-                    SOLIDIFIED_MESHES,
-                    _soldifiedMeshes == null,
-                    () =>
+            initializer.Do(
+                this,
+                SOLIDIFIED_MESHES,
+                _soldifiedMeshes == null,
+                () =>
+                {
+                    using (_PRF_Initialize.Auto())
                     {
                         _soldifiedMeshes =
                             MeshObjectWrapperLookupCollection.LoadOrCreateNew(SOLIDIFIED_MESHES);
                     }
-                );
+                }
+            );
 #endif
-            }
         }
 
         #region Profiling
-
-        private const string _PRF_PFX = nameof(MeshObjectManagerMeshCollection) + ".";
-
-        private static readonly ProfilerMarker _PRF_Initialize =
-            new ProfilerMarker(_PRF_PFX + nameof(Initialize));
 
         private static readonly ProfilerMarker _PRF_Dispose = new ProfilerMarker(_PRF_PFX + nameof(Dispose));
 

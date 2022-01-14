@@ -6,7 +6,6 @@ using System.Linq;
 using Appalachia.Core.Attributes;
 using Appalachia.Core.Collections.Interfaces;
 using Appalachia.Core.Collections.Native;
-using Appalachia.Core.Objects.Initialization;
 using Appalachia.Core.Objects.Root;
 using Appalachia.Jobs.MeshData.Collections;
 using Appalachia.Utility.Async;
@@ -24,6 +23,8 @@ namespace Appalachia.Jobs.MeshData
     {
         static MeshObjectManager()
         {
+            
+            
             RegisterDependency<MeshObjectManagerMeshCollection>(i => _meshObjectManagerMeshCollection = i);
         }
 
@@ -36,7 +37,6 @@ namespace Appalachia.Jobs.MeshData
         #region Fields and Autoproperties
 
         private Dictionary<int, Mesh> _previousLookups = new();
-        private List<Action> _completionActions;
 
         #endregion
 
@@ -193,24 +193,6 @@ namespace Appalachia.Jobs.MeshData
             }
         }
 
-        public void RegisterDisposalDependency(Action a)
-        {
-            using (_PRF_RegisterDisposalDependency.Auto())
-            {
-                _completionActions ??= new List<Action>();
-
-                _completionActions.Add(a);
-            }
-        }
-
-        protected override async AppaTask Initialize(Initializer initializer)
-        {
-            using (_PRF_Initialize.Auto())
-            {
-                await base.Initialize(initializer);
-            }
-        }
-
         protected override async AppaTask WhenDisabled()
         {
             await base.WhenDisabled();
@@ -226,34 +208,13 @@ namespace Appalachia.Jobs.MeshData
                     return;
                 }
 
-                //Context.Log.Info("Disposing native collections.");
-
-                if (_completionActions != null)
-                {
-                    for (var i = 0; i < _completionActions.Count; i++)
-                    {
-                        _completionActions[i]?.Invoke();
-                    }
-                }
-
                 _meshObjectManagerMeshCollection.Dispose();
             }
         }
 
         #region Profiling
 
-        private const string _PRF_PFX = nameof(MeshObjectManager) + ".";
-
         private static readonly ProfilerMarker _PRF_GetByMesh = new(_PRF_PFX + nameof(GetByMesh));
-
-        private static readonly ProfilerMarker _PRF_RegisterDisposalDependency =
-            new ProfilerMarker(_PRF_PFX + nameof(RegisterDisposalDependency));
-
-        private static readonly ProfilerMarker _PRF_OnDisable =
-            new ProfilerMarker(_PRF_PFX + nameof(OnDisable));
-
-        private static readonly ProfilerMarker _PRF_Initialize =
-            new ProfilerMarker(_PRF_PFX + nameof(Initialize));
 
         private static readonly ProfilerMarker _PRF_GetByMesh_CheckCollection =
             new(_PRF_PFX + nameof(GetByMesh) + ".CheckCollection");
