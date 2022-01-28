@@ -18,7 +18,7 @@ namespace Appalachia.Jobs.MeshData
     {
         static MeshObjectWrapper()
         {
-            MeshObjectManager.InstanceAvailable += i => _meshObjectManager = i;
+            When.Behaviour<MeshObjectManager>().IsAvailableThen( i => _meshObjectManager = i);
         }
 
         #region Static Fields and Autoproperties
