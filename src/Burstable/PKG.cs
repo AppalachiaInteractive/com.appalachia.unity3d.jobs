@@ -33,21 +33,34 @@ namespace Appalachia.Jobs.Burstable
         public const string NeutralResourcesLanguage = "en";
         public const string AssemblyVersion = "0.2.0.0";
         public const string AssemblyFileVersion = "0.2.0.0";
-        public const int Priority = -414000;
+        public const int Priority = -419000;
         public const string Name = "Jobs/Burstable";
         public const string Prefix = Root + Name + "/";
         public const string Root = "Appalachia/";
         public const string Version = "0.2.0";
         public const int VersionInt = 2000;
-        public const string BuildDate = "2022-01-28T17:24:42.6557959Z";
+        public const string BuildDate = "2022-02-05T14:10:59.8049417Z";
         
         public static partial class Prefs
         {
             public const string Group = Prefix;
 
+            public static partial class General
+            {
+                public const string Group = Prefs.Group + "General";
+                private const string Base = Group + "/";                
+            }
+
+            public static partial class Colors
+            {
+                public const string Group = Prefs.Group + "Colors";
+                private const string Base = Group + "/";                
+            }
+
             public static partial class Gizmos
             {
-                public const string Base = Group + "Gizmos/";
+                public const string Group = Prefs.Group + "Gizmos";
+                private const string Base = Group + "/";                
             }
         }       
 
