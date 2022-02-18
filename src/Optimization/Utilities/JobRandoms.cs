@@ -14,46 +14,46 @@ namespace Appalachia.Jobs.Optimization.Utilities
 {
     public struct JobRandoms : IDisposable
     {
+        #region Constants and Static Readonly
+
         public const int INSTANCE_COUNT = 50000;
 
-        public bool IsCreated => randoms.IsCreated;
+        #endregion
 
         public JobRandoms(Allocator allocator)
         {
             randoms = new NativeArray<double>(INSTANCE_COUNT, allocator);
 
-            random = new Random((uint) GLOBAL_RANDOM.random.Next(0, int.MaxValue));
+            random = new Random((uint)GLOBAL_RANDOM.random.Next(0, int.MaxValue));
 
             CleanupManager.Store(this);
-            
-            var job = new PopulateJob {random = random, randoms = randoms};
+
+            var job = new PopulateJob { random = random, randoms = randoms };
 
             job.Execute();
         }
+
+        #region Fields and Autoproperties
+
+        private readonly Random random;
+
+        private NativeArray<double> randoms;
+
+        #endregion
+
+        public bool IsCreated => randoms.IsCreated;
 
         public double Get(int index)
         {
             return randoms[index % randoms.Length];
         }
 
-        private NativeArray<double> randoms;
-
-        private readonly Random random;
-
-        [BurstCompile]
-        private struct PopulateJob : IJob
+        public bool ShouldAllocate()
         {
-            public Random random;
-            [WriteOnly] public NativeArray<double> randoms;
-
-            public void Execute()
-            {
-                for (var i = 0; i < randoms.Length; i++)
-                {
-                    randoms[i] = random.NextDouble();
-                }
-            }
+            return randoms.ShouldAllocate();
         }
+
+        #region IDisposable Members
 
         /*public void Dispose(JobHandle deps)
         {
@@ -67,13 +67,37 @@ namespace Appalachia.Jobs.Optimization.Utilities
         {
             if (randoms.IsCreated)
             {
-                randoms.Dispose();
+                randoms.SafeDispose();
             }
         }
 
-        public bool ShouldAllocate()
+        #endregion
+
+        #region Nested type: PopulateJob
+
+        [BurstCompile]
+        private struct PopulateJob : IJob
         {
-            return randoms.ShouldAllocate();
+            #region Fields and Autoproperties
+
+            [WriteOnly] public NativeArray<double> randoms;
+            public Random random;
+
+            #endregion
+
+            #region IJob Members
+
+            public void Execute()
+            {
+                for (var i = 0; i < randoms.Length; i++)
+                {
+                    randoms[i] = random.NextDouble();
+                }
+            }
+
+            #endregion
         }
+
+        #endregion
     }
 }

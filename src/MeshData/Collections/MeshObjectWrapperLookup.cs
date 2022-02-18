@@ -20,16 +20,19 @@ namespace Appalachia.Jobs.MeshData.Collections
     )]
     public class MeshObjectWrapperLookup : AppaLookup<int, MeshObjectWrapper, intList, MeshObjectWrapperList>
     {
+        /// <inheritdoc />
         protected override Color GetDisplayColor(int key, MeshObjectWrapper value)
         {
             return Color.white;
         }
 
+        /// <inheritdoc />
         protected override string GetDisplaySubtitle(int key, MeshObjectWrapper value)
         {
             return string.Empty;
         }
 
+        /// <inheritdoc />
         protected override string GetDisplayTitle(int key, MeshObjectWrapper value)
         {
             return value.mesh.name;

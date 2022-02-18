@@ -17,4 +17,9 @@ MonoBehaviour:
   _initializer:
     _tags: []
     _resetToken: 
+  _objectId:
+    _increment: 0
+    _machine: 0
+    _timestamp: 0
+    _pid: 0
   _mesh: {fileID: 4486638730639878954, guid: 349a3ccdc13065e47b1a8e6a2e88d6be, type: 3}

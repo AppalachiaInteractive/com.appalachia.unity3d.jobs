@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Appalachia.Core.Attributes;
 using Appalachia.Core.Collections.Native;
 using Appalachia.Core.Math.Stats.Implementations;
 using Appalachia.Core.Objects.Root;
@@ -15,6 +16,7 @@ using Unity.Profiling;
 
 namespace Appalachia.Jobs.Concurrency
 {
+    [NonSerializable]
     public class JobCycleQueueManager : AppalachiaSimpleBase, IDisposable
     {
         public JobCycleQueueManager()
@@ -27,7 +29,7 @@ namespace Appalachia.Jobs.Concurrency
         [NonSerialized] private Queue<int> _active;
         [NonSerialized] private Queue<int> _completed;
 
-        private string _countString;
+        [NonSerialized] private string _countString;
         [NonSerialized] private long[] _cycleTimings;
         [NonSerialized] private Queue<int> _delayed;
         [NonSerialized] private double _fastestCycleTime;
@@ -36,14 +38,13 @@ namespace Appalachia.Jobs.Concurrency
 
         [NonSerialized] private Queue<int> _inactive;
 
-        //[NonSerialized] private int[] _iArray;
-
         [NonSerialized] private JobCycleStatus[] _status;
         [NonSerialized] private Queue<int> _swap;
 
         [NonSerialized] private bool[] _timeTracked;
         [NonSerialized] private doubleStatsTracker _timeTracker;
-        private string _timingString;
+
+        [NonSerialized] private string _timingString;
 
         #endregion
 
@@ -76,6 +77,7 @@ namespace Appalachia.Jobs.Concurrency
 
         public int NextInactive => AnyInactive ? _inactive.Peek() : -1;
 
+        /// <inheritdoc />
         [DebuggerStepThrough]
         public override string ToString()
         {
@@ -418,16 +420,12 @@ namespace Appalachia.Jobs.Concurrency
         #region Profiling
 
         private const string _PRF_PFX = nameof(JobCycleQueueManager) + ".";
-
         private static readonly ProfilerMarker _PRF_Dispose = new(_PRF_PFX + nameof(Dispose));
         private static readonly ProfilerMarker _PRF_Populate = new(_PRF_PFX + nameof(Populate));
         private static readonly ProfilerMarker _PRF_Skip = new(_PRF_PFX + nameof(Skip));
         private static readonly ProfilerMarker _PRF_SetActive = new(_PRF_PFX + nameof(SetActive));
-
         private static readonly ProfilerMarker _PRF_EnsureCompleted = new(_PRF_PFX + nameof(EnsureCompleted));
-
         private static readonly ProfilerMarker _PRF_ResetCompleted = new(_PRF_PFX + nameof(ResetCompleted));
-
         private static readonly ProfilerMarker _PRF_CheckTiming = new(_PRF_PFX + nameof(CheckTiming));
 
         private static readonly ProfilerMarker _PRF_CheckWork = new(_PRF_PFX + nameof(CheckWork));
@@ -439,9 +437,7 @@ namespace Appalachia.Jobs.Concurrency
             new(_PRF_PFX + nameof(CurrentCycleTime));
 
         private static readonly ProfilerMarker _PRF_ToString = new(_PRF_PFX + nameof(ToString));
-
         private static readonly ProfilerMarker _PRF_CountsString = new(_PRF_PFX + nameof(CountsString));
-
         private static readonly ProfilerMarker _PRF_TimingsString = new(_PRF_PFX + nameof(TimingsString));
 
         private static readonly ProfilerMarker _PRF_CheckTiming_UTCNow =

@@ -23,8 +23,6 @@ namespace Appalachia.Jobs.MeshData
     {
         static MeshObjectManager()
         {
-            
-            
             RegisterDependency<MeshObjectManagerMeshCollection>(i => _meshObjectManagerMeshCollection = i);
         }
 
@@ -193,10 +191,14 @@ namespace Appalachia.Jobs.MeshData
             }
         }
 
+        /// <inheritdoc />
         protected override async AppaTask WhenDisabled()
         {
             await base.WhenDisabled();
-            DisposeNativeCollections();
+            using (_PRF_WhenDisabled.Auto())
+            {
+                DisposeNativeCollections();
+            }
         }
 
         private void DisposeNativeCollections()
@@ -213,6 +215,9 @@ namespace Appalachia.Jobs.MeshData
         }
 
         #region Profiling
+
+        private static readonly ProfilerMarker _PRF_DisposeNativeCollections =
+            new(_PRF_PFX + nameof(DisposeNativeCollections));
 
         private static readonly ProfilerMarker _PRF_GetByMesh = new(_PRF_PFX + nameof(GetByMesh));
 
@@ -232,9 +237,6 @@ namespace Appalachia.Jobs.MeshData
 
         private static readonly ProfilerMarker _PRF_GetCheapestMeshWrapper =
             new(_PRF_PFX + nameof(GetCheapestMeshWrapper));
-
-        private static readonly ProfilerMarker _PRF_DisposeNativeCollections =
-            new(_PRF_PFX + nameof(DisposeNativeCollections));
 
         #endregion
     }

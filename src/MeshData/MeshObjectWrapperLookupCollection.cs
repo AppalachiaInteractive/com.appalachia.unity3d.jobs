@@ -9,8 +9,10 @@ namespace Appalachia.Jobs.MeshData
     public class MeshObjectWrapperLookupCollection : AppalachiaObjectLookupCollection<int, MeshObjectWrapper,
         intList, MeshObjectWrapperList, MeshObjectWrapperLookup, MeshObjectWrapperLookupCollection>
     {
+        /// <inheritdoc />
         public override bool HasDefault => false;
 
+        /// <inheritdoc />
         protected override int GetUniqueKeyFromValue(MeshObjectWrapper value)
         {
             return value.mesh.GetHashCode();

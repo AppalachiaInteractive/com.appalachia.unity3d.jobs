@@ -18,7 +18,7 @@ namespace Appalachia.Jobs.MeshData
     {
         static MeshObjectWrapper()
         {
-            When.Behaviour<MeshObjectManager>().IsAvailableThen( i => _meshObjectManager = i);
+            When.Behaviour<MeshObjectManager>().IsAvailableThen(i => _meshObjectManager = i);
         }
 
         #region Static Fields and Autoproperties
@@ -59,6 +59,7 @@ namespace Appalachia.Jobs.MeshData
             return data;
         }
 
+        /// <inheritdoc />
         protected override async AppaTask Initialize(Initializer initializer)
         {
             await base.Initialize(initializer);
@@ -67,6 +68,6 @@ namespace Appalachia.Jobs.MeshData
             {
                 CleanupManager.Store(data);
             }
-        }                       
+        }
     }
 }
