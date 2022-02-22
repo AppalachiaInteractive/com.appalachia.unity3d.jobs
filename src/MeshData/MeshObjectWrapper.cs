@@ -66,7 +66,7 @@ namespace Appalachia.Jobs.MeshData
 
             using (_PRF_Initialize.Auto())
             {
-                CleanupManager.Store(data);
+                CleanupManager.Store(ref data);
             }
         }
     }

@@ -6,6 +6,7 @@ using Appalachia.Core.Execution;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.Profiling;
 using Random = Unity.Mathematics.Random;
 
 #endregion
@@ -20,28 +21,35 @@ namespace Appalachia.Jobs.Optimization.Utilities
 
         #endregion
 
-        public JobRandoms(Allocator allocator)
-        {
-            randoms = new NativeArray<double>(INSTANCE_COUNT, allocator);
-
-            random = new Random((uint)GLOBAL_RANDOM.random.Next(0, int.MaxValue));
-
-            CleanupManager.Store(this);
-
-            var job = new PopulateJob { random = random, randoms = randoms };
-
-            job.Execute();
-        }
-
         #region Fields and Autoproperties
 
-        private readonly Random random;
-
         private NativeArray<double> randoms;
+
+        private Random random;
 
         #endregion
 
         public bool IsCreated => randoms.IsCreated;
+
+        public static JobRandoms Create(Allocator allocator)
+        {
+            using (_PRF_Create.Auto())
+            {
+                var instance = new JobRandoms();
+
+                instance.randoms = new NativeArray<double>(INSTANCE_COUNT, allocator);
+
+                instance.random = new Random((uint)GLOBAL_RANDOM.random.Next(0, int.MaxValue));
+
+                CleanupManager.Store(ref instance);
+
+                var job = new PopulateJob { random = instance.random, randoms = instance.randoms };
+
+                job.Execute();
+
+                return instance;
+            }
+        }
 
         public double Get(int index)
         {
@@ -97,6 +105,14 @@ namespace Appalachia.Jobs.Optimization.Utilities
 
             #endregion
         }
+
+        #endregion
+
+        #region Profiling
+
+        private const string _PRF_PFX = nameof(JobRandoms) + ".";
+
+        private static readonly ProfilerMarker _PRF_Create = new ProfilerMarker(_PRF_PFX + nameof(Create));
 
         #endregion
     }
